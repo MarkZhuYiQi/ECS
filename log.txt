@@ -1,0 +1,11 @@
+第一天
+1：建立两张表 news和user
+2：新建index.php
+3：项目域名
+
+第二天
+1：下载了NotORM
+2：开启了mysql_pdo
+3：测试了NotORM单表操作
+    http://www.notorm.com/
+4：建立了响应配置项目，数据库用户名密码DSN；
