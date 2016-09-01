@@ -11,5 +11,8 @@ class index extends _Main{
         //模板加载在这个函数里
         $this->setViewName("prod");
         $this->addObject("ProdName","我的第一个商品");
+        if(GET("id")){
+            echo GET("id");
+        }
     }
 }
