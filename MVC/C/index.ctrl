@@ -16,9 +16,14 @@ class index extends _Main{
         if(!$this->inCache()){
             $this->addObject("ProdName","我的第一个商品");
         }*/
+
+/*
         $m=load_model("user");     //加载用户表
         $m->load("id=1");
-
-        $this->addObject("username",$m->user_name);
+//        $m->loadAll();
+        $this->addObject("users",$m->all());
+*/
+        $this->addObject("username","mark");
+        $this->addObject("usersex","male");
     }
 }

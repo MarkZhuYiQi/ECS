@@ -69,10 +69,33 @@ class _Main{
             extract($this->_objList);
         }
 
+        ob_start();     //打开缓冲区
+
         include("MVC/V/".CURRENT_VIEWPATH."/head.tpl"); //加载头模板
 
         include("MVC/V/".CURRENT_VIEWPATH."/".$this->_viewName.".tpl"); //加载业务模板
 
         include("MVC/V/".CURRENT_VIEWPATH."/footer.tpl"); //加载尾模板
+
+        $getContent=ob_get_contents();          //获取以上所有内容
+
+        ob_clean();
+
+        echo $this->getTpl($getContent);
+
+    }
+    function getTpl($tplContent){
+        if(preg_match_all("/{([a-zA-Z]{1,30}?)}/is",$tplContent,$result)) {        //不区分大小写 i，换行符不包含 s
+            foreach($result as $key=>$value){
+                if($key==1){
+                    foreach($value as $v){
+                        if(array_key_exists($v,$this->_objList)){
+                            $tplContent=preg_replace("/{".$v."}/is",$this->_objList[$v],$tplContent);
+                        }
+                    }
+                }
+            }
+        }
+        return $tplContent;
     }
 }

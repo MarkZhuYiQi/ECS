@@ -1,14 +1,29 @@
 <?php
 
+/**
+ * Class _Model
+ * 模型的主文件
+ */
 class _Model{
     public $_modelName="";
     public $_db=false;
     public $_result=false;
+
+    /**
+     * _Model constructor.
+     * @param $mName
+     * 这其实就是构造函数，现在很少用，在没有__construct函数下会去寻找同名函数作为构造函数
+     * 相当于__construct($mName)
+     */
     function _Model($mName){
         //$mName暂时代表表名
         $this->_modelName=DB_Prefix."_".$mName;     //user=>shop_user
         $this->modelInt();      //初始化
     }
+
+    /**
+     * 初始化PDO和NotORM
+     */
     function modelInt(){
         //初始化模块,将文件include进来
         load_lib("db","NotORM");        //将NotORM.php加载进来
@@ -22,18 +37,35 @@ class _Model{
         $pdo->exec("set names utf8");
         $this->_db=new NotORM($pdo,$structure);  //初始化
     }
+
+    /**
+     * @param $where
+     * @return bool
+     * 加载当前数据表中在特定条件下筛选出的数值
+     */
     function load($where){                  //加载表格
         $tbName=$this->_modelName;          //表名
         if(trim($where)=="")return false;   //禁止程序员没有任何条件的加载全表
         $this->_result=$this->_db->$tbName()->select("*")->where($where)->limit(1);
     }
-    function test(){
+    function loadAll(){                  //加载表格
+        $tbName=$this->_modelName;          //表名
+        $this->_result=$this->_db->$tbName();
+    }
+
+    function all(){
         return $this->_result;
     }
-    function __get($pname){
+
+    /**
+     * @param $pname
+     * @return bool
+     * 魔术方法，获取私有变量
+     * 对查询结果做处理，取出单条，然后返回单条结果
+     */
+    function __get($pname){     //魔术方法，在该对象下无法获取某个变量时就会执行他试图寻找变量
         if($this->_result && count($this->_result)==1){
-//            $ret=$this->_result[0];
-            echo $ret=$this->_result->fetch();
+            $ret=$this->_result->fetch();       //取出一条数据，也可以写成$this->_result[0]
             return $ret[$pname];
         }
         return false;

@@ -33,3 +33,5 @@
     4：安装php memcached.dll扩展，TS为Thread Safe,NTS是not safe
        官网下载地址：http://pecl.php.net/package/memcache/3.0.8/windows
        添加extension=php_memcache.dll
+实现了页面数据缓存
+然后实现了简单model，和NotORM进行了交互
