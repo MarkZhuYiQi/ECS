@@ -7,18 +7,67 @@
  */
 
 class _Main{
-    var $_viewName="index";
-    var $_objList=array();  //变量数组
+    public $_viewName="index";  //查询
+    public $_objList=array();   //变量数组
+    public $cache_time=0;       //0的话就没有缓存处理
+
+    /**
+     * 设置cache是否启用
+     * @param int $cacheTime
+     */
+    function setCacheEnabled($cacheTime=60){
+        if($cacheTime>0){
+            $this->cache_time=$cacheTime;    //设置缓存时间
+        }
+    }
+
+    /**
+     * 判断缓存是否过期
+     * @return bool
+     */
+    function inCache(){     //缓存是否还存在
+        if(get_cache($this->_viewName)){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param $objName
+     * @param $objValue
+     * 添加变量
+     */
     function addObject($objName,$objValue){
         $this->_objList[$objName]=$objValue;
     }
+
+    /**
+     * @param $vname
+     * 设置视图模板名称
+     */
     function setViewName($vname){
         //设置view的名称
         $this->_viewName=$vname;
     }
+
+
     //执行MVC架构所有事宜
     function run(){
-        extract($this->_objList);   //解包变量值
+
+        if($this->cache_time>0){    //代表从缓存中获取内容
+            //从缓存中获取变量值
+            $getVars=get_cache($this->_viewName);
+            if($getVars){
+                echo "使用了缓存";
+                extract($getVars);   //解包变量值
+            }else{
+                //将objList数组放到视图模板名称变量下
+                set_cache($this->_viewName,$this->_objList,$this->cache_time);
+                extract($this->_objList);
+            }
+        }else{
+            extract($this->_objList);
+        }
 
         include("MVC/V/".CURRENT_VIEWPATH."/head.tpl"); //加载头模板
 

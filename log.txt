@@ -22,3 +22,14 @@
     1）setViewName   设置需要加载的业务模板
     2）addObject     设置需要加载的变量（这里用到PHP extract函数）
 4：_Main.php拥有run方法。执行MVC架构所有事宜。
+
+第五天：
+首先安装了memcached
+    1：用DOS进入memcache的文件夹中
+    2：执行命令，memcached.exe -d install,安装memcached服务
+    3：启动memcached，memcached.exe -d start
+       停止memcached，memcached.exe -d stop
+       卸载memcached，memcached.exe -d uninstall
+    4：安装php memcached.dll扩展，TS为Thread Safe,NTS是not safe
+       官网下载地址：http://pecl.php.net/package/memcache/3.0.8/windows
+       添加extension=php_memcache.dll

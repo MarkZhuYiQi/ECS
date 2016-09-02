@@ -10,9 +10,15 @@ class index extends _Main{
     function getIndex(){
         //模板加载在这个函数里
         $this->setViewName("prod");
-        $this->addObject("ProdName","我的第一个商品");
-        if(GET("id")){
-            echo GET("id");
-        }
+
+/*        $this->setCacheEnabled(10);
+
+        if(!$this->inCache()){
+            $this->addObject("ProdName","我的第一个商品");
+        }*/
+        $m=load_model("user");     //加载用户表
+        $m->load("id=1");
+
+        $this->addObject("username",$m->user_name);
     }
 }
