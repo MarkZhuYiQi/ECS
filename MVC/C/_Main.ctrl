@@ -6,6 +6,8 @@
  * Time: 11:01 AM
  */
 
+
+
 class _Main{
     public $_viewName="index";  //查询
     public $_objList=array();   //变量数组
@@ -79,23 +81,85 @@ class _Main{
 
         $getContent=ob_get_contents();          //获取以上所有内容
 
-        ob_clean();
+        ob_clean();                             //清除缓冲区内容
 
-        echo $this->getTpl($getContent);
-
+        $getContent=$this->getForeach($getContent);         //先解析循环
+        $getContent=$this->getSimpleVars($getContent);      //然后解析简单变量
+        echo $getContent;
     }
-    function getTpl($tplContent){
+
+    /**
+     * @param $tplContent
+     * @return mixed
+     * 用于解析单变量
+     * 获取到本来输出到缓冲区的内容，用正则表达式匹配需要的关键字
+     * 然后替换成需要的结果值
+     */
+    function getSimpleVars($tplContent){
         if(preg_match_all("/{([a-zA-Z]{1,30}?)}/is",$tplContent,$result)) {        //不区分大小写 i，换行符不包含 s
-            foreach($result as $key=>$value){
-                if($key==1){
-                    foreach($value as $v){
-                        if(array_key_exists($v,$this->_objList)){
-                            $tplContent=preg_replace("/{".$v."}/is",$this->_objList[$v],$tplContent);
-                        }
-                    }
+            $value=$result[1];
+            foreach($value as $v){
+                if(array_key_exists($v,$this->_objList)){
+                    $tplContent=preg_replace("/{".$v."}/is",$this->_objList[$v],$tplContent);
                 }
             }
         }
         return $tplContent;
     }
+    function replaceForeachVars($replaceContent,$varName,$row){
+        //替换循环内部内容
+        if(preg_match_all("/{".$varName."\.([\w]{1,30})}/is",$replaceContent,$result)) {
+            $value=$result[1];
+            foreach($value as $v){
+                if($row[$v]){
+                    $tplContent=preg_replace("/{".$varName."\.".$v."}/is",$row[$v],$replaceContent);
+                }
+            }
+        }
+        return $tplContent;
+    }
+    function getForeach($tplContent){
+        /**
+         * 注意：这里在括号内头部加入?<NAME>相当于给该位置的变量设定了别名，遍历出来可以得知在result中增加了一个以NAME命名的数组
+         *      同时原来的数组依然做保留，也就等于说有两个名字不同但是内容完全相同的数组。
+         * 为了区别同一页面不同的foreach需要给每个foreach加上唯一标识符
+         */
+        global $foreach_id;         //外部变量
+//        if(preg_match_all("/{foreach\:(?<varObject>[a-zA-Z]{1,30})\s+name=\"(?<varName>[a-zA-Z]{1,30}?)\"}/",$tplContent,$result)){
+//            var_dump($result["varObject"]);
+//            var_dump($result["varName"]);
+//        }
+        //逐个替换页面中的标记并做唯一标识符
+        $tplContent=preg_replace_callback("/(foreach):([a-zA-Z]{1,30})/is","foreachCallBack",$tplContent);
+        //有几个foreach循环就会循环几次
+        foreach($foreach_id as $fid){
+            //有几个foreach就循环取出几个。找出对应id的foreach
+            $pattern="/{foreach\:(?<varObject>[a-zA-Z]{1,30})\:".$fid."\s+name=\"(?<varName>[a-zA-Z]{1,30}?)\"}/";
+            if(preg_match_all($pattern,$tplContent,$result)){
+                $finalResult="";
+                $varObject=$result["varObject"][0];     //获得每次需要循环取出的数组
+                $varName=$result["varName"][0];         //作为来传递每次的值的变量
+                if($this->_objList[$varObject]){       //寻找该数组是否在已被赋值的列表中
+                    $pattern="/{foreach:".$varObject.":".$fid."\s+.*?}(?<replaceContent>.*?){\/foreach}/is";
+                    preg_match($pattern,$tplContent,$contentResult);
+                    $contentResult=$contentResult["replaceContent"];   //取出需要循环的内容
+                    foreach($this->_objList[$varObject] as $row){       //将列表中的值取出来
+                        $tmp=$this->replaceForeachVars($contentResult,$varName,$row);
+                        $finalResult.=$tmp;
+                    }
+                }
+                //替换最终foreach的值
+                $tplContent=preg_replace('/{foreach:'.$varObject.':'.$fid.'\s+.*?}.*?{\/foreach}/is',$finalResult,$tplContent);
+            }
+//            echo $finalResult;
+        }
+        return $tplContent;
+    }
+}
+$foreach_id=array();
+function foreachCallBack($match){
+    $id=md5(uniqid());
+    global $foreach_id;
+    $foreach_id[]=$id;
+    return $match[1].":".$match[2].":".$id;
 }
