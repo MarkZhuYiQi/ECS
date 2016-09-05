@@ -106,6 +106,7 @@ class _Main{
         }
         return $tplContent;
     }
+
     function replaceForeachVars($replaceContent,$varName,$row){
         //替换循环内部内容
         if(preg_match_all("/{".$varName."\.([\w]{1,30})}/is",$replaceContent,$result)) {
@@ -140,12 +141,14 @@ class _Main{
                 $varObject=$result["varObject"][0];     //获得每次需要循环取出的数组
                 $varName=$result["varName"][0];         //作为来传递每次的值的变量
                 if($this->_objList[$varObject]){       //寻找该数组是否在已被赋值的列表中
+                    //取出循环的中间部分
                     $pattern="/{foreach:".$varObject.":".$fid."\s+.*?}(?<replaceContent>.*?){\/foreach}/is";
-                    preg_match($pattern,$tplContent,$contentResult);
-                    $contentResult=$contentResult["replaceContent"];   //取出需要循环的内容
-                    foreach($this->_objList[$varObject] as $row){       //将列表中的值取出来
-                        $tmp=$this->replaceForeachVars($contentResult,$varName,$row);
-                        $finalResult.=$tmp;
+                    if(preg_match($pattern,$tplContent,$contentResult)){    //
+                        $contentResult = $contentResult["replaceContent"];   //取出需要循环的内容
+                        foreach ($this->_objList[$varObject] as $row) {       //将列表中的值取出来
+                            $tmp = $this->replaceForeachVars($contentResult, $varName, $row);
+                            $finalResult .= $tmp;
+                        }
                     }
                 }
                 //替换最终foreach的值
@@ -155,10 +158,23 @@ class _Main{
         }
         return $tplContent;
     }
+
 }
-$foreach_id=array();
+
+
+
+
+
+
+
+$foreach_id=array();        //存放每个foreach的唯一标识符
+/**
+ * @param $match
+ * @return string
+ * 该函数是用于给每个foreach添加唯一标示符
+ */
 function foreachCallBack($match){
-    $id=md5(uniqid());
+    $id=md5(uniqid());        //这种方案在高并发状态下还是会重复，我觉得还是rand好点
     global $foreach_id;
     $foreach_id[]=$id;
     return $match[1].":".$match[2].":".$id;
