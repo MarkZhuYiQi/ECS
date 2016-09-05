@@ -5,7 +5,7 @@
     {usersex}
 
     {foreach:users name="user"}
-        用户名：{user.user_name} {username} <br />
+        用户名：{blue('user.user_name')} {username} <br />
     {/foreach}
     {foreach:users name="user"}
         密码：{user.user_pass} {username}

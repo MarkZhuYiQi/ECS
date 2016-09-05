@@ -108,12 +108,22 @@ class _Main{
     }
 
     function replaceForeachVars($replaceContent,$varName,$row){
-        //替换循环内部内容
-        if(preg_match_all("/{".$varName."\.([\w]{1,30})}/is",$replaceContent,$result)) {
-            $value=$result[1];
-            foreach($value as $v){
-                if($row[$v]){
-                    $tplContent=preg_replace("/{".$varName."\.".$v."}/is",$row[$v],$replaceContent);
+        //替换循环内部内容  red('user.user_name')
+        if(preg_match_all("/{(.*?".$varName."\.(?<varValue>[\w]{1,30}).*?)}/is",$replaceContent,$result)) {
+            $varValue=$result['varValue'][0];
+            $result=$result[1];
+            foreach($result as $v){
+                if($row[$varValue]){
+                    if($varName.".".$varValue==trim($v)){
+                        $tplContent=preg_replace("/{".$varName."\.".$varValue."}/is",$row[$varValue],$replaceContent);
+                    }else{
+                        $v=preg_replace("/".$varName."\.".$varValue."/is",$row[$varValue],$v);
+                        eval('$last='.$v.";");
+                        if($last){
+                            $tplContent=$last;
+                        }
+                    }
+
                 }
             }
         }
@@ -178,4 +188,7 @@ function foreachCallBack($match){
     global $foreach_id;
     $foreach_id[]=$id;
     return $match[1].":".$match[2].":".$id;
+}
+function blue($str){
+    return "<span style='color:blue'>$str</span>";
 }
