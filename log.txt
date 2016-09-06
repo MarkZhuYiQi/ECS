@@ -35,3 +35,9 @@
        添加extension=php_memcache.dll
 实现了页面数据缓存
 然后实现了简单model，和NotORM进行了交互
+
+第六天：
+    1：完成循环变量解析
+    2：单变量解析
+    3：加入自定义函数功能。
+    4：完成include模板功能.
