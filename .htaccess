@@ -4,5 +4,7 @@
     RewriteCond %{QUERY_STRING} ^(.*)
 #   如果下面不加/ecs/直接跟index则最后apache翻译的是http://localhost/index.php?control=xxxxxxx;
     RewriteRule ^([a-zA-Z]{2,10})/([a-zA-Z]{3,20})/$ /ecs/index.php?control=$1&action=$2&%1
+    RewriteRule ^css/(.*) MVC/V/v1/css/$1
+    RewriteRule ^js/(.*) MVC/V/v1/js/$1
 </ifmodule>
 

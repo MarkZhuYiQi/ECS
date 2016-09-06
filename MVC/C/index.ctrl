@@ -9,7 +9,7 @@
 class index extends _Main{
     function getIndex(){
         //模板加载在这个函数里
-        $this->setViewName("prod");
+        $this->setViewName("index");
 
 /*        $this->setCacheEnabled(10);
 
@@ -26,6 +26,6 @@ class index extends _Main{
         $this->addObject("username","mark");
         $this->addObject("usersex","male");
 
-        $this->isFileCache=true;    //保存到缓存文件中
+        $this->isFileCache=false;    //保存到缓存文件中
     }
 }
