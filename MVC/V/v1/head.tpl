@@ -5,11 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta property="qc:admins" content="2642646666641160167637571645060454" />
     <title>ECS</title>
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/showDialog.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
+<?php
+    if(!$hideTop):
+?>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/showDialog.js"></script>
     <div class="container">
         <div class="row clearfix">
             <div class="col-md-12 column">
@@ -58,31 +63,10 @@
                         </form>
                         <ul class="nav navbar-nav navbar-right">
                             <li>
-                                <a href="#">链接</a>
+                                <a href="#" onclick="showWindow('会员登录','member/login/',500)">登录</a>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">下拉菜单<strong class="caret"></strong></a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="#">列表一</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">列表二</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">列表三</a>
-                                    </li>
-                                    <li class="divider">
-                                    </li>
-                                    <li>
-                                        <a href="#">更多列表</a>
-                                    </li>
-                                    <li class="divider">
-                                    </li>
-                                    <li>
-                                        <a href="#">更多列表</a>
-                                    </li>
-                                </ul>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">注册</a>
                             </li>
                         </ul>
                     </div>
@@ -91,3 +75,6 @@
             </div>
         </div>
     </div>
+<?php
+    endif;
+?>

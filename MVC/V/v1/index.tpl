@@ -6,13 +6,32 @@
         background-color:#d9534f;
         border-color: #d43f3a;
         color: #fff;
+        outline:none;
     }
     .btn{
         background-color:#fff;
         border-color: #d43f3a;
         color:#d9534f;
+        outline:none;
     }
 </style>
+
+<script>
+    $(document).ready(function(){
+//        $(".prodImg").popover({
+//            trigger:"hover",
+//            title:"JavaScript圣经",
+//            content:"JavaScript圣经JavaScript圣经JavaScript圣经JavaScript圣经JavaScript圣经JavaScript圣经"
+//        });
+//        $(".prodImg").popover();
+
+        /**
+         * showDialog插件使用
+         */
+//        showInfo("HELLO");
+//        showWindow("message reminder","index/getProd/",500);
+    });
+</script>
 <div class="container">
     <div class="row clearfix">
         <div class="col-md-12 column">
@@ -30,7 +49,7 @@
                     <div class="row">               <!--商品列表-->
                         <div class="col-md-4">
                             <div class="thumbnail">
-                                <img alt="300x200" src="http://img12.360buyimg.com/n7/jfs/t1267/340/542581995/248346/e364dcaa/552e74bfN1350cd93.jpg" />
+                                <img class="prodImg" data-placement="top" data-toggle="popover" data-trigger="click" title="JavaScript圣经" data-content="JavaScript圣经" alt="300x200" src="http://img12.360buyimg.com/n7/jfs/t1267/340/542581995/248346/e364dcaa/552e74bfN1350cd93.jpg" />
                                 <div class="caption">
                                     <h4>
                                         JavaScript圣经
@@ -47,7 +66,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="thumbnail">
-                                <img alt="300x200" src="http://img10.360buyimg.com/n7/jfs/t2680/274/3707696254/120035/6281369a/57986bbdN27e0e4fe.jpg" />
+                                <img class="prodImg" data-placement="top" data-toggle="popover" data-trigger="click" title="JavaScript圣经" data-content="JavaScript圣经" alt="300x200" src="http://img10.360buyimg.com/n7/jfs/t2680/274/3707696254/120035/6281369a/57986bbdN27e0e4fe.jpg" />
                                 <div class="caption">
                                     <h4>
                                         O'Reilly：Head First Java
@@ -64,7 +83,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="thumbnail">
-                                <img alt="300x200" src="http://img13.360buyimg.com/n7/jfs/t1234/297/551484478/215959/973eea1f/552e7594N5f9833e9.jpg" />
+                                <img class="prodImg" data-placement="top" data-toggle="popover" data-trigger="click" title="JavaScript圣经" data-content="JavaScript圣经" alt="300x200" src="http://img13.360buyimg.com/n7/jfs/t1234/297/551484478/215959/973eea1f/552e7594N5f9833e9.jpg" />
                                 <div class="caption">
                                     <h4>
                                         JavaScript DOM编程艺术

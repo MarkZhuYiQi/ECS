@@ -1,0 +1,25 @@
+<?php
+    class member extends _Main{
+        function login(){
+            $this->setViewName("login");
+            $this->addObject("hideTop",true);
+            $this->addObject("hideBottom",true);
+        }
+        function login_action(){
+            $get_userName=GET("userName","post");
+            $get_userPass=GET("userPass","post");
+            if($get_userName==""||$get_userPass==""){
+                exit("error"." username or password could not be null");
+            }
+            $m=load_model("user");
+            $m->load(" user_name='".$get_userName."' ");
+            if($m->user_pass){
+                exit($m->user_pass);
+            }else{
+                exit("error"." username or password incorrect");
+            }
+
+        }
+    }
+
+

@@ -7,6 +7,14 @@
  */
 
 class index extends _Main{
+    function getProd(){
+        $this->setViewName("msg");
+        $this->addObject("hideTop",true);
+        $this->addObject("hideBottom",true);
+        echo myCrypt("mark",USER_CRYPEKEY);
+//        echo myDecrypt("VP4ApFqRw0wWUivtR/xR9Q==","1234");
+    }
+
     function getIndex(){
         //模板加载在这个函数里
         $this->setViewName("index");
@@ -22,6 +30,9 @@ class index extends _Main{
 //        $m->load("id=1");
         $m->loadAll();
         $this->addObject("users",$m->all());
+
+        $this->addObject("hideTop",false);
+        $this->addObject("hideBottom",false);
 
         $this->addObject("username","mark");
         $this->addObject("usersex","male");

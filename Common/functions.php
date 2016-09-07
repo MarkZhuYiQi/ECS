@@ -19,6 +19,8 @@ function GET($pname,$method="get"){
     $plist=$method=="get"?$_GET:$_POST; //已经成了数组
     if(isset($plist[$pname])){
         $getValue=trim($plist[$pname]);
+        $getValue=strip_tags($getValue);    //去除HTML和PHP 标记
+        $getValue=addslashes($getValue);    //对单双引号，反斜杠和null进行反斜线转义
         $getValue=str_replace(array("gcd"),"",$getValue);
 
         return $getValue;
@@ -46,3 +48,4 @@ function load_lib($lib,$libName){
     //后缀必须是PHP
     require("Lib/".$lib."/".$libName.".php");
 }
+include("encrypt.php");

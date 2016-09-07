@@ -1,3 +1,6 @@
+<?php
+    if(!$hideBottom):
+?>
     <div class="container">
         <div class="row clearfix">
             <div class="col-md-12 column">
@@ -13,5 +16,8 @@
             </div>
         </div>
     </div>
+<?php
+    endif;
+?>
 </body>
 </html>

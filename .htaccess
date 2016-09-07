@@ -1,10 +1,14 @@
 <ifmodule mod_rewrite.c>
     RewriteEngine On
+#模板：ecs/index/getIndex/css/bootstrap.min.css  需要把css前面所有内容替换掉，否则解析错误的，这就是成就感！
+    RewriteRule ^[a-zA-Z0-9/]*?css/(.*) MVC/V/v1/css/$1
+    RewriteRule ^[a-zA-Z0-9/]*?js/(.*) MVC/V/v1/js/$1
 
     RewriteCond %{QUERY_STRING} ^(.*)
 #   如果下面不加/ecs/直接跟index则最后apache翻译的是http://localhost/index.php?control=xxxxxxx;
-    RewriteRule ^([a-zA-Z]{2,10})/([a-zA-Z]{3,20})/$ /ecs/index.php?control=$1&action=$2&%1
-    RewriteRule ^css/(.*) MVC/V/v1/css/$1
-    RewriteRule ^js/(.*) MVC/V/v1/js/$1
+    RewriteRule ^([a-zA-Z_]{2,10})/([a-zA-Z_]{3,20})/$ /ecs/index.php?control=$1&action=$2&%1
+#    RewriteRule ^/ecs[a-zA-Z0-9/]*?/([a-zA-Z]{2,10})/([a-zA-Z]{3,20})/$ /ecs/index.php?control=$1&action=$2&%1
+
+
 </ifmodule>
 

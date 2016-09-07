@@ -10,7 +10,7 @@
 
     define("INCLUDE_PATH","MVC/V/v1/include/"); //include文件存放位置
     define("CACHE_PATH","Cache/"); //include文件存放位置
-
+    define("USER_CRYPEKEY","7777777y"); //用户密码，秘钥
 
 
 
