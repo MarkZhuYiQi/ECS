@@ -65,7 +65,7 @@ class _Model{
      */
     function __get($pname){     //魔术方法，在该对象下无法获取某个变量时就会执行他试图寻找变量
         if($this->_result && count($this->_result)==1){
-            $ret=$this->_result->fetch();       //取出一条数据，也可以写成$this->_result[0]
+            $ret=$this->_result[1];       //取出一条数据，也可以写成$this->_result[0], fetch()是取下一行的
             if($ret[$pname]){
                 return $ret[$pname];
             }else{

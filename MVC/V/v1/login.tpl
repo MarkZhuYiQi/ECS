@@ -8,7 +8,13 @@
                     "userPass":$("#inputPass").val()
                 },
                 function(result){
-                    alert(result);
+                    if(result=="1"){
+                        alert("登陆成功！");
+                    }else if(result=="0"){
+                        alert("登陆失败！账户名或密码不正确！");
+                    }else{
+                        alert(result);
+                    }
         });
     }
 </script>

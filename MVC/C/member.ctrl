@@ -14,7 +14,12 @@
             $m=load_model("user");
             $m->load(" user_name='".$get_userName."' ");
             if($m->user_pass){
-                exit($m->user_pass);
+                $get_db_pass=$m->user_pass;
+                if($get_db_pass===myCrypt($get_userPass,USER_CRYPEKEY)){
+                    exit("1");
+                }else{
+                    exit("0");
+                }
             }else{
                 exit("error"." username or password incorrect");
             }
