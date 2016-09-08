@@ -28,6 +28,22 @@ function GET($pname,$method="get"){
         return false;
     }
 }
+
+function the_user(){
+    if(isset($_COOKIE[USER_LOGINKEY])){
+        load_lib("user","userInfo");
+//        $userInfo=new userInfo();
+        $getCookie=myDecrypt($_COOKIE[USER_LOGINKEY],USERLOGIN_CRYPEKEY);
+        $userInfo=unserialize($getCookie);      //必须先有这个userInfo类定义的 才能正确解序列
+        var_dump($userInfo);
+        if($userInfo&&$userInfo->user_name!=""&&$userInfo->user_loginIP==IP()){
+            return $userInfo;
+        }
+        return false;
+    }
+    return false;
+}
+
 //memcache设置缓存
 function set_cache($key,$value,$expire){
     $m=new Memcache();
@@ -48,4 +64,19 @@ function load_lib($lib,$libName){
     //后缀必须是PHP
     require("Lib/".$lib."/".$libName.".php");
 }
+function IP(){
+    if(!empty($_SERVER["HTTP_CLIENT_IP"])) {
+        $cip = $_SERVER["HTTP_CLIENT_IP"];
+    }
+    elseif(!empty($_SERVER["HTTP_X_FORWARDED_FOR"])){
+        $cip=$_SERVER["HTTP_X_FORWARDED_FOR"];
+    }
+    elseif(!empty($_SERVER["REMOTE_ADDR"])){
+        $cip=$_SERVER["REMOTE_ADDR"];
+    }else{
+        $cip="";
+    }
+    return $cip;
+}
+
 include("encrypt.php");

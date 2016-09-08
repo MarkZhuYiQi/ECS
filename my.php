@@ -11,6 +11,9 @@
     define("INCLUDE_PATH","MVC/V/v1/include/"); //include文件存放位置
     define("CACHE_PATH","Cache/"); //include文件存放位置
     define("USER_CRYPEKEY","7777777y"); //用户密码，秘钥
+    define("USERLOGIN_CRYPEKEY","MarkZhuLgoin"); //用户登录密码，秘钥
+    define("USER_LOGINKEY","user_login");       // 便于用户管理
+    define("USER_LOGINDOMAIN","localhost");     //指定cookie能使用的范围
 
 
 

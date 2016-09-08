@@ -1,15 +1,20 @@
 <script>
     function login(){
-        $(".form-horizontal").submit(false);
+        $(".form-horizontal").submit(
+            function(e){
+                e.preventDefault();
+            }
+        );
         $.post(
-                "member/login_action/",
+                "/ecs/member/login_action/",
                 {
                     "userName":$("#inputUserName").val(),
                     "userPass":$("#inputPass").val()
                 },
                 function(result){
                     if(result=="1"){
-                        alert("登陆成功！");
+//                        alert("登陆成功！");
+                        self.location.reload();
                     }else if(result=="0"){
                         alert("登陆失败！账户名或密码不正确！");
                     }else{

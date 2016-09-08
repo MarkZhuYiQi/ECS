@@ -6,9 +6,14 @@
 
     RewriteCond %{QUERY_STRING} ^(.*)
 #   如果下面不加/ecs/直接跟index则最后apache翻译的是http://localhost/index.php?control=xxxxxxx;
-    RewriteRule ^([a-zA-Z_]{2,10})/([a-zA-Z_]{3,20})/$ /ecs/index.php?control=$1&action=$2&%1
-#    RewriteRule ^/ecs[a-zA-Z0-9/]*?/([a-zA-Z]{2,10})/([a-zA-Z]{3,20})/$ /ecs/index.php?control=$1&action=$2&%1
+#    RewriteRule ^([a-zA-Z_]{2,10})/([a-zA-Z_]{3,20})/$ /ecs/index.php?control=$1&action=$2&%1
 
+
+
+    RewriteRule ^[a-zA-Z0-9/]*?([a-zA-Z_]{2,10})/([a-zA-Z_]{3,20})/$ /ecs/index.php?control=$1&action=$2&%1
+#   The requested URL /ecs/index/getIndex/member/login/ was not found on this server.
+#   RewriteRule获取到的URL包含有最前面的斜杠（也就是域名或端口号后面的斜杠）
+#   尼玛，注意匹配字符！是不是有下划线还是别的！真纠结！
 
 </ifmodule>
 

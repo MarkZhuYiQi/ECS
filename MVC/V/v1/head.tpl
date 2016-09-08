@@ -62,15 +62,31 @@
                             </div> <button type="submit" class="btn btn-default">搜索</button>
                         </form>
                         <ul class="nav navbar-nav navbar-right">
+                            <?php
+                                $getUser=the_user();
+                            ?>
+                            <?php if($getUser): ?>
+
+                            <li>
+                                欢迎你：<?php echo $getUser->user_name; ?>
+                            </li>
+                            <li>
+                                <a href="#">安全退出</a>
+                            </li>
+
+                            <?php else: ?>
+
                             <li>
                                 <a href="#" onclick="showWindow('会员登录','member/login/',500)">登录</a>
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">注册</a>
                             </li>
+
+                            <?php endif; ?>
+
                         </ul>
                     </div>
-
                 </nav>
             </div>
         </div>

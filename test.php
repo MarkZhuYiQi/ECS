@@ -6,9 +6,10 @@
  * Time: 22:17
  */
 
-//$str="/ecs/index/getIndex/index/getProd/";
-$str="/ecs/index/getIndex/";
-$pattern="/^\/ecs[\/a-zA-Z0-9]*?\/([a-zA-Z]{2,10})\/([a-zA-Z]{3,20})\/$/";
+$str="/ecs/index/getIndex/index/getProd/";
+//$str="/ecs/index/getIndex/";
+//$pattern="/^\/ecs[\/a-zA-Z0-9]*?\/([a-zA-Z]{2,10})\/([a-zA-Z]{3,20})\/$/";
+$pattern="/^[a-zA-Z0-9\/]*?([a-zA-Z]{2,10})\/([a-zA-Z]{3,20})\/$/";
 if(preg_match_all($pattern,$str,$result)){
     var_dump($result);
     var_dump($control=$result[1][0]);
