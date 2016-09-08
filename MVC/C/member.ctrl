@@ -6,8 +6,10 @@
             $this->addObject("hideBottom",true);
         }
         function login_action(){
+//            print_r($_POST);
             $get_userName=GET("userName","post");
             $get_userPass=GET("userPass","post");
+            $get_rememberWeek=intval($_POST["rememberWeek"]);
             if($get_userName==""||$get_userPass==""){
                 exit("error"." username or password could not be null");
             }
@@ -23,7 +25,12 @@
                     $userInfo->user_loginIP=IP();
                     $userInfo->user_loginTime=strtotime(date("Y-m-d h:i:s"));   //登录时间戳
                     $cookie_string=myCrypt(serialize($userInfo),USERLOGIN_CRYPEKEY);
-                    setcookie(USER_LOGINKEY,$cookie_string,0,"/",USER_LOGINDOMAIN);
+                    if($get_rememberWeek>0){
+                        $cookieTime=time()+3600*24*7;
+                    }else{
+                        $cookieTime=0;
+                    }
+                    setcookie(USER_LOGINKEY,$cookie_string,$cookieTime,"/",USER_LOGINDOMAIN);
                     exit("1");
                 }else{
                     exit("0");
@@ -31,6 +38,13 @@
             }else{
                 exit("error"." username or password incorrect");
             }
+        }
+        function unlogin(){
+            $this->setViewName("unlogin");
+            $this->addObject("hideTop",true);
+            $this->addObject("hideBottom",true);
+            $this->addObject("refer",$_SERVER["HTTP_REFERER"]);
+            setcookie(USER_LOGINKEY,'',time()-10000,"/",USER_LOGINDOMAIN);
         }
     }
 //    class member extends _Main{

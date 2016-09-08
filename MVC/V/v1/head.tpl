@@ -68,10 +68,10 @@
                             <?php if($getUser): ?>
 
                             <li>
-                                欢迎你：<?php echo $getUser->user_name; ?>
+                                <a href="#">欢迎你：<?php echo $getUser->user_name; ?></a>
                             </li>
                             <li>
-                                <a href="#">安全退出</a>
+                                <a href="member/unlogin/">安全退出</a>
                             </li>
 
                             <?php else: ?>

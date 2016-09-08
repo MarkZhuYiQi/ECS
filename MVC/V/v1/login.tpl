@@ -1,5 +1,15 @@
 <script>
+//    $(document).ready(function(){
+//        ($("#rememberWeek").click(function(){
+//            alert($("#rememberWeek").prop("checked"));
+//        }));
+//    });
     function login(){
+
+        var rememberWeek=0; //默认不记住登录状态
+        if($("#rememberWeek").prop("checked")){
+            rememberWeek=1; //记住一周
+        }
         $(".form-horizontal").submit(
             function(e){
                 e.preventDefault();
@@ -9,7 +19,8 @@
                 "/ecs/member/login_action/",
                 {
                     "userName":$("#inputUserName").val(),
-                    "userPass":$("#inputPass").val()
+                    "userPass":$("#inputPass").val(),
+                    "rememberWeek":rememberWeek
                 },
                 function(result){
                     if(result=="1"){
@@ -43,7 +54,7 @@
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-9">
                         <div class="checkbox">
-                            <label><input type="checkbox" /> 记住我</label>
+                            <label><input id="rememberWeek" type="checkbox" /> 一周内免登陆</label>
                         </div>
                     </div>
                 </div>

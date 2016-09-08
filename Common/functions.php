@@ -35,7 +35,6 @@ function the_user(){
 //        $userInfo=new userInfo();
         $getCookie=myDecrypt($_COOKIE[USER_LOGINKEY],USERLOGIN_CRYPEKEY);
         $userInfo=unserialize($getCookie);      //必须先有这个userInfo类定义的 才能正确解序列
-        var_dump($userInfo);
         if($userInfo&&$userInfo->user_name!=""&&$userInfo->user_loginIP==IP()){
             return $userInfo;
         }
