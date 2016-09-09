@@ -1,0 +1,9 @@
+<?php
+    class m_index extends _Main{
+        public function __construct(){
+            $this->isAdmin=true;
+        }
+        function index(){
+            $this->setViewName("index");
+        }
+    }

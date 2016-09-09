@@ -13,6 +13,7 @@ class _Main{
     public $_objList=array();   //变量数组
     public $cache_time=0;       //0的话就没有缓存处理
     public $isFileCache=false;   //默认是否保存文件缓存
+    public $isAdmin=false;      //是否是后台管理
 
 
     /**
@@ -75,11 +76,14 @@ class _Main{
 
         ob_start();     //打开缓冲区
 
-        include("MVC/V/".CURRENT_VIEWPATH."/head.tpl"); //加载头模板
+        $view_path=CURRENT_VIEWPATH;
+        if($this->isAdmin)$view_path=CURRENT_VIEWPATH_ADMIN;
 
-        include("MVC/V/".CURRENT_VIEWPATH."/".$this->_viewName.".tpl"); //加载业务模板
+        include("MVC/V/".$view_path."/head.tpl"); //加载头模板
 
-        include("MVC/V/".CURRENT_VIEWPATH."/footer.tpl"); //加载尾模板
+        include("MVC/V/".$view_path."/".$this->_viewName.".tpl"); //加载业务模板
+
+        include("MVC/V/".$view_path."/footer.tpl"); //加载尾模板
 
         $getContent=ob_get_contents();          //获取以上所有内容
 
