@@ -1,25 +1,35 @@
 <ifmodule mod_rewrite.c>
     RewriteEngine On
 #模板：ecs/index/getIndex/css/bootstrap.min.css  需要把css前面所有内容替换掉，否则解析错误的，这就是成就感！
-    RewriteRule ^[\w/]*?css/(.*) MVC/V/v1/css/$1
-    RewriteRule ^[\w/]*?js/(.*) MVC/V/v1/js/$1
-    RewriteRule ^[\w/]*?img/(.*) MVC/V/v1/img/$1
+#    RewriteRule ^[\w/]*?/css/(.*) MVC/V/v1/css/$1
+#    RewriteRule ^[\w/]*?/js/(.*) MVC/V/v1/js/$1
+#    RewriteRule ^[\w/]*?/img/(.*) MVC/V/v1/img/$1
 
-    RewriteRule ^[\w/]*?cssb/(.*) MVC/V/v1Back/css/$1
-    RewriteRule ^[\w/]*?jsb/(.*) MVC/V/v1Back/js/$1
-    RewriteRule ^[\w/]*?imgb/(.*) MVC/V/v1Back/img/$1
+#    RewriteRule ^[\w/]*?/cssback/(.*) MVC/V/v1Back/css/$1
+#    RewriteRule ^[\w/]*?jsback/(.*) MVC/V/v1Back/js/$1
+#    RewriteRule ^[\w/]*?imgback/(.*) MVC/V/v1Back/img/$1
+
+    RewriteRule ^css/(.*) /ecs/MVC/V/v1/css/$1
+    RewriteRule ^js/(.*) /ecs/MVC/V/v1/js/$1
+    RewriteRule ^img/(.*) /ecs/MVC/V/v1/img/$1
+
+    RewriteRule ^cssb/(.*) /ecs/MVC/V/v1Back/css/$1
+    RewriteRule ^jsb/(.*) /ecs/MVC/V/v1Back/js/$1
+    RewriteRule ^imgb/(.*) /ecs/MVC/V/v1Back/img/$1
+
 
 
     RewriteCond %{QUERY_STRING} ^(.*)
 #   如果下面不加/ecs/直接跟index则最后apache翻译的是http://localhost/index.php?control=xxxxxxx;
-#    RewriteRule ^([a-zA-Z_]{2,10})/([a-zA-Z_]{3,20})/$ /ecs/index.php?control=$1&action=$2&%1
 
-
-
-    RewriteRule ^[\w/]*?([\w]{2,10})/([\w]{3,20})/$ /ecs/index.php?control=$1&action=$2&%1
+#    RewriteRule ^[\w/]*?([\w]{2,10})/([\w]{3,20})/$ /ecs/index.php?control=$1&action=$2&%1
 #   The requested URL /ecs/index/getIndex/member/login/ was not found on this server.
 #   RewriteRule获取到的URL包含有最前面的斜杠（也就是域名或端口号后面的斜杠）
 #   尼玛，注意匹配字符！是不是有下划线还是别的！真纠结！
 
+
+
+
+    RewriteRule ^(\w{3,20})/(\w{3,20})/$ /ecs/index.php?control=$1&action=$2&%1
 </ifmodule>
 

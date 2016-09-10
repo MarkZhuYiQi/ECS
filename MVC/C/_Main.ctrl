@@ -103,6 +103,7 @@ class _Main{
         }else{
             echo $this->generateTpl($getContent);
         }
+//        var_dump($_SERVER);     //检测正则匹配apache 情况
     }
 
     /**

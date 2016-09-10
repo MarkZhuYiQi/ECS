@@ -5,16 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta property="qc:admins" content="2642646666641160167637571645060454" />
     <title>ECS</title>
-    <link rel="stylesheet" href="css/showDialog.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="/ecs/css/showDialog.css">
+    <link rel="stylesheet" href="/ecs/css/bootstrap.min.css">
 </head>
 <body>
 <?php
     if(!$hideTop):
 ?>
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/showDialog.js"></script>
+<script src="/ecs/js/jquery.js"></script>
+<script src="/ecs/js/bootstrap.min.js"></script>
+<script src="/ecs/js/showDialog.js"></script>
     <div class="container">
         <div class="row clearfix">
             <div class="col-md-12 column">
@@ -71,13 +71,13 @@
                                 <a href="#">欢迎你：<?php echo $getUser->user_name; ?></a>
                             </li>
                             <li>
-                                <a href="member/unlogin/">安全退出</a>
+                                <a href="/ecs/member/unlogin/">安全退出</a>
                             </li>
 
                             <?php else: ?>
 
                             <li>
-                                <a href="#" onclick="showWindow('会员登录','member/login/',500)">登录</a>
+                                <a href="#" onclick="showWindow('会员登录','/ecs/member/login/',500)">登录</a>
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">注册</a>
