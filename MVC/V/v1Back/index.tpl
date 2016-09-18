@@ -4,43 +4,48 @@
         height:100%;
     }
 </style>
+<script>
+    $(document).ready(function(){
+        $("#mytree").tree({
+            url:"/ecs/m_index/tree/",
+            onClick:function(node){
+                if(node.attributes && node.attributes.url) {
+                    addTab(node.text,node.attributes.url);
+
+//                    $("#mainframe").attr("src", node.attributes.url);
+
+                }
+            }
+        });
+
+        //加载树形菜单
+    });
+    function addTab(title,url){
+        if($("#mainframe").tabs("exists",title)){
+            $("#mainframe").tabs("select",title);
+        }else{
+            var content="<iframe src='"+url+"' width='100%' height='100%' frameborder='0'></iframe>";
+            $("#mainframe").tabs("add",{
+                title:title,
+                content:content,
+                closable:true
+            });
+        }
+    }
+</script>
 <h2>Basic Layout</h2>
 <div style="margin:20px 0;"></div>
-<div data-options="region:'north'" style="height:50px">
-    <h2>background</h2>
+<div data-options="region:'north'" style="height:50px;line-height:45px;font-size:26px;text-indent:5px;">
+    微电商后台管理
 </div>
-<div data-options="region:'south',split:true" style="height:50px;"></div>
-<div data-options="region:'east',split:true" title="East" style="width:100px;"></div>
+
+
 <div data-options="region:'west',split:true" title="我的工作平台" style="width:200px;">
 
     <div class="easyui-accordion" data-options="fit:true,border:false">
         <div title="基础信息管理" style="padding:10px;" data-options="selected:true">
-            <ul class="easyui-tree">
-                <li>
-                    <span>商品管理</span>
-                    <ul>
-                        <li>商品列表</li>
-                        <li>新增商品</li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="easyui-tree">
-                <li>
-                    <span>新闻管理</span>
-                    <ul>
-                        <li>新闻列表</li>
-                        <li>新增新闻</li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="easyui-tree">
-                <li>
-                    <span>用户管理</span>
-                    <ul>
-                        <li>用户列表</li>
-                        <li>初始化密码</li>
-                    </ul>
-                </li>
+            <ul class="easyui-tree" id="mytree">
+
             </ul>
 
         </div>
@@ -54,10 +59,8 @@
 </div>
 <div data-options="region:'center',title:'Main Title',iconCls:'icon-ok'">
 
-    <div class="easyui-tabs" style="width:100%;height:100%">
-        <div title="About" style="padding:10px">
-            <iframe src="/ecs/index/getIndex/" width="100%" height="100%" frameborder="0"></iframe>
-        </div>
+    <div class="easyui-tabs" style="width:100%;height:100%" id="mainframe" >
+        <div title="title"></div>
     </div>
 
 </div>
