@@ -6,13 +6,39 @@
         function index(){
             $this->setViewName("index");
         }
+        function getTree_child($pid,$tree,$parentNode){
+            $children=array();
+            foreach($tree as $r){
+                if($r["pid"]==$pid){
+                    $child=array("id"=>$r['id'],"text"=>$r['tree_text'],
+                                "state"=>$r['tree_state'],
+                                "attributes"=>array("url"=>$r["tree_url"]));
+                    $children[]=$child;
+                }
+            }
+            return $children;
+        }
         function tree(){
             $tree=load_model("m_tree");
             $tree->loadAll();
+            $treeList=array();      //拼接树形菜单
+            $ret=$tree->all();
+            $ret2=clone($ret);      //复制一个$ret,用于给子pid循环子选项，尼玛不看视频根本不知道什么原因啊！
+            foreach($ret as $r){
+//                echo $r["tree_text"]."<br />";
+                if($r["pid"]==0){       //代表根节点
+                    $parentNode=array("id"=>$r['id'],"text"=>$r['tree_text'],"state"=>$r['tree_state']);
+                    $get_children=$this->getTree_child($r['id'],$ret2,$parentNode);      //在这里把ret循环完了，指针到头了
+                    if(count($get_children)>0){
+                        $parentNode["children"]=$get_children;
+                    }
+                    $treeList[]=$parentNode;
+                }else{
 
-            foreach($tree->all() as $r){
-
+                }
             }
+
+            exit(json_encode($treeList));
             /*
             $tree=array();
             $prod_add=array("id"=>2,"text"=>"商品管理","state"=>"open","attributes"=>array("url"=>"/ecs/index/getindex/"));    //添加商品

@@ -8,6 +8,7 @@ class _Model{
     public $_modelName="";
     public $_db=false;
     public $_result=false;
+    public $_dsn;
 
     /**
      * _Model constructor.
@@ -15,9 +16,14 @@ class _Model{
      * 这其实就是构造函数，现在很少用，在没有__construct函数下会去寻找同名函数作为构造函数
      * 相当于__construct($mName)
      */
-    function _Model($mName){
-        //$mName暂时代表表名
-        $this->_modelName=DB_Prefix."_".$mName;     //user=>shop_user
+    function _Model($mName,$dsn=DB_DSN){
+        $this->_dsn=$dsn;
+        if($dsn=DB_DSN){
+            //$mName暂时代表表名
+            $this->_modelName=DB_Prefix."_".$mName;     //user=>shop_user
+        }else{
+            $this->_modelName=$mName;     //user=>shop_user
+        }
         $this->modelInt();      //初始化
     }
 
@@ -27,7 +33,8 @@ class _Model{
     function modelInt(){
         //初始化模块,将文件include进来
         load_lib("db","NotORM");        //将NotORM.php加载进来
-        $pdo=new PDO(DB_DSN,DB_user,DB_pass);
+        $pdo=new PDO($this->_dsn,DB_user,DB_pass);
+        $pdo->query("set names utf8");
             $structure=new NotORM_Structure_Convention(
                 $primary='id',          //这里告诉NotORM我们的主键都是ID这种英文单词
                 $foreign='%sid',        //同理，外键都是外表名+id,这很重要，否则NotORM拼接SQL都会拼错
@@ -48,13 +55,24 @@ class _Model{
         if(trim($where)=="")return false;   //禁止程序员没有任何条件的加载全表
         $this->_result=$this->_db->$tbName()->select("*")->where($where)->limit(1);
     }
-    function loadAll(){                  //加载表格
+    function loadAll($cols="",$where=""){                  //加载表格
         $tbName=$this->_modelName;          //表名
-        $this->_result=$this->_db->$tbName();
+        if($cols=""){
+            $this->_result=$this->_db->$tbName();
+        }else{
+            $this->_result=$this->_db->$tbName()->select($cols)->where($where);
+        }
     }
 
     function all(){
         return $this->_result;
+    }
+
+    function insert($array){
+        return $this->_db->$tbName()->insert($array);
+    }
+    function update($array){
+        return $this->_db->$tbName()->update($array);
     }
 
     /**

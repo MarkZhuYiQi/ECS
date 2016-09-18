@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 08, 2016 at 04:58 PM
+-- Generation Time: Sep 18, 2016 at 11:51 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -19,6 +19,33 @@ SET time_zone = "+00:00";
 --
 -- Database: `ecs`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ecs_m_tree`
+--
+
+CREATE TABLE IF NOT EXISTS `ecs_m_tree` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tree_text` varchar(20) NOT NULL,
+  `tree_url` varchar(200) NOT NULL,
+  `tree_state` char(6) NOT NULL DEFAULT 'open',
+  `pid` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `ecs_m_tree`
+--
+
+INSERT INTO `ecs_m_tree` (`id`, `tree_text`, `tree_url`, `tree_state`, `pid`) VALUES
+(1, '商品管理', '', 'open', 0),
+(2, '添加商品', '/ecs/index/getIndex/', 'open', 1),
+(3, '商品列表', '#', 'open', 1),
+(4, '新闻管理', '', 'open', 0),
+(5, '新闻列表', '#', 'open', 4),
+(6, '添加新闻', '#', 'open', 4);
 
 -- --------------------------------------------------------
 
@@ -50,13 +77,13 @@ INSERT INTO `ecs_news` (`id`, `news_title`, `news_intr`, `news_classId`, `new_co
 
 CREATE TABLE IF NOT EXISTS `ecs_prod` (
   `id` int(8) NOT NULL AUTO_INCREMENT,
-  `prod_name` varchar(50) NOT NULL,
-  `prod_introduction` varchar(500) NOT NULL,
+  `prod_name` varchar(50) NOT NULL COMMENT '商品名称',
+  `prod_introduction` varchar(500) NOT NULL COMMENT '商品简介 ',
   `prod_content` text NOT NULL COMMENT '商品图文简介',
-  `prod_classId` int(11) NOT NULL DEFAULT '0',
-  `prod_price1` decimal(10,2) NOT NULL,
-  `prod_price2` decimal(10,2) NOT NULL,
-  `prd_class_name` varchar(20) NOT NULL,
+  `prod_classId` int(11) NOT NULL DEFAULT '0' COMMENT '商品类ID',
+  `prod_price1` decimal(10,2) NOT NULL COMMENT '原价',
+  `prod_price2` decimal(10,2) NOT NULL COMMENT '现价',
+  `prod_class_name` varchar(20) NOT NULL COMMENT '商品类别',
   `prod_ispublic` tinyint(1) NOT NULL DEFAULT '1' COMMENT '商品是否发布',
   `addTime` datetime NOT NULL,
   PRIMARY KEY (`id`)

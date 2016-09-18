@@ -55,9 +55,9 @@ function get_cache($key){
     $m->connect(Cache_IP,Cache_Port);
     return $m->get($key);
 }
-function load_model($mName){
+function load_model($mName,$dsn=DB_DSN){
     //加载一个模块
-    return new _Model($mName);
+    return new _Model($mName,$dsn);
 }
 function load_lib($lib,$libName){
     //后缀必须是PHP

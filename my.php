@@ -3,6 +3,7 @@
     define("DB_user","root");
     define("DB_pass","7777777y");
     define("DB_DSN","mysql:host=localhost;dbname=ecs");
+    define("DB_SYSDSN","mysql:host=localhost;dbname=information_schema");
     define("CURRENT_VIEWPATH","v1");    //当前模拟使用的版本文件夹
     define("CURRENT_VIEWPATH_ADMIN","v1Back");   //后台使用版本文件夹
 
