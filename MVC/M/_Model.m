@@ -18,7 +18,7 @@ class _Model{
      */
     function _Model($mName,$dsn=DB_DSN){
         $this->_dsn=$dsn;
-        if($dsn=DB_DSN){
+        if($dsn==DB_DSN){
             //$mName暂时代表表名
             $this->_modelName=DB_Prefix."_".$mName;     //user=>shop_user
         }else{
@@ -57,7 +57,7 @@ class _Model{
     }
     function loadAll($cols="",$where=""){                  //加载表格
         $tbName=$this->_modelName;          //表名
-        if($cols=""){
+        if($cols==""){
             $this->_result=$this->_db->$tbName();
         }else{
             $this->_result=$this->_db->$tbName()->select($cols)->where($where);

@@ -33,8 +33,6 @@
                         $parentNode["children"]=$get_children;
                     }
                     $treeList[]=$parentNode;
-                }else{
-
                 }
             }
 
@@ -48,4 +46,28 @@
             exit(json_encode($tree));
             */
         }
+
+        function prod(){
+            $this->setViewName("addprod");
+
+            if($_POST){
+                $prod=load_model("prod");
+                $ret=$prod->_db->ecs_prod()->insert(array(
+                    "prod_name"=>"测试商品"
+                ));
+                if($ret&&intval($ret)==1){
+                    echo "submit success!";
+                }else{
+                    echo "submit failed";
+                }
+                exit();
+            }
+            $cols=load_model("COLUMNS",DB_SYSDSN);
+            $cols->loadAll("COLUMN_NAME,COLUMN_TYPE,COLUMN_COMMENT","TABLE_NAME='ecs_prod' and EXTRA!='auto_increment' ");
+            $this->addObject("tbSet",$cols->all());
+//            foreach($cols->all() as $r){
+//                echo $r["COLUMN_NAME"]."<br />";
+//            }
+        }
+
     }
