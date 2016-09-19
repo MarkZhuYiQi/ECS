@@ -193,9 +193,44 @@ class _Main{
         return $tplContent;
     }
 
-    function replaceForeachVars($replaceContent,$varName,$row){
+    /**
+     * @param $replaceContent   需要循环的内容
+     * @param $varName          foreach循环中as后面的那个变量
+     * @param $row              需要循环的数组在列表中的值
+     * @return mixed
+     */
+    function replaceForeachVars($replaceContent,$varName,$row)
+    {
         //替换循环内部内容  red('user.user_name')
-//        var_dump($replaceContent);
+        if (preg_match_all("/{(.*?)}/is", $replaceContent, $result)) {
+            $result = $result[1];
+            foreach ($result as $r) {
+                //根据{}中内容取出变量值，如user.username，匹配出username
+                if(!preg_match_all("/".$varName."\.(?<varValue>\w{1,30})/is",$r,$varResult)) continue;
+                $varList = $varResult["varValue"];        //取出匹配到的集合
+                if (count($varList) == 1 && $varName . "." . $varList[0]==trim($r)) { //这种情况下代表没有函数
+                    $varValue = $varList[0];  //没有函数只有变量且只有一个
+                    if ($row[$varValue]) {
+                        $tplContent = preg_replace("/{" . $varName . "\." . $varValue . "}/is", $row[$varValue], $replaceContent);
+                    }
+                } else {        //代表有函数
+                    $newr = $r;
+                    foreach ($varList as $varValue) {     //有函数的情况下循环里面所有变量
+                        if (!$row[$varValue]) continue;
+                        $newr = preg_replace("/" . $varName . "\." . $varValue . "/is", $row[$varValue], $newr);
+                    }
+                    eval('$last=' . $newr . ';');
+                    if ($last) {
+                        $tplContent = str_replace("{" . $r . "}", $last, $replaceContent);
+                    }
+                }
+            }
+        }
+        if (isset($tplContent)) {
+            return $tplContent;
+        }
+    }
+/*
         if(preg_match_all("/{([^{]*?".$varName."\.(?<varValue>[\w]{1,30}).*?)}/is",$replaceContent,$result)) {
             $varValue=$result['varValue'][0];
 //            var_dump($result);
@@ -219,8 +254,12 @@ class _Main{
                 }
             }
         }
-        return $tplContent;
+        if(isset($tplContent)){
+            return $tplContent;
+        }
     }
+*/
+
     function getForeach($tplContent){
         /**
          * 注意：这里在括号内头部加入?<NAME>相当于给该位置的变量设定了别名，遍历出来可以得知在result中增加了一个以NAME命名的数组

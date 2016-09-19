@@ -61,7 +61,7 @@ function load_model($mName,$dsn=DB_DSN){
 }
 function load_lib($lib,$libName){
     //后缀必须是PHP
-    require("Lib/".$lib."/".$libName.".php");
+    require_once("Lib/".$lib."/".$libName.".php");
 }
 function IP(){
     if(!empty($_SERVER["HTTP_CLIENT_IP"])) {

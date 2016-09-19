@@ -47,7 +47,7 @@
             */
         }
 
-        function prod(){
+        function addprod(){
             $this->setViewName("addprod");
 
             if($_POST){
