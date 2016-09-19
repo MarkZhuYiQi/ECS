@@ -1,0 +1,17 @@
+<?php
+    function blue($str){
+        return "<span style='color:blue'>$str</span>";
+    }
+    function green($str){
+        return "<span style='color:green'>$str</span>";
+    }
+    function len($str){
+        return $str."的长度为".strlen($str);
+    }
+    function genInputLabel($comment){
+        $comment=explode("|",$comment);
+        return $comment[0];
+    }
+    function genInput($colType,$is_Nullable,$colName,$length,$comment){
+
+    }

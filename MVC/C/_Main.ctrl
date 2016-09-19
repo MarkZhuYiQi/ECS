@@ -6,7 +6,7 @@
  * Time: 11:01 AM
  */
 
-
+require_once "tplfunc.ctrl";
 
 class _Main{
     public $_viewName="index";  //查询
@@ -321,9 +321,4 @@ function foreachCallBack($match){
     $foreach_id[]=$id;
     return $match[1].":".$match[2].":".$id;
 }
-function blue($str){
-    return "<span style='color:blue'>$str</span>";
-}
-function green($str){
-    return "<span style='color:green'>$str</span>";
-}
+

@@ -63,11 +63,8 @@
                 exit();
             }
             $cols=load_model("COLUMNS",DB_SYSDSN);
-            $cols->loadAll("COLUMN_NAME,COLUMN_TYPE,COLUMN_COMMENT","TABLE_NAME='ecs_prod' and EXTRA!='auto_increment' ");
+            $cols->loadAll("*","TABLE_NAME='ecs_prod' and EXTRA!='auto_increment' ");
             $this->addObject("tbSet",$cols->all());
-//            foreach($cols->all() as $r){
-//                echo $r["COLUMN_NAME"]."<br />";
-//            }
         }
 
     }

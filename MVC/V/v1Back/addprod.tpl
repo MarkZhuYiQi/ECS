@@ -7,6 +7,12 @@
                         <td>{tb.COLUMN_COMMENT}:</td>
                         <td><input class="easyui-textbox" type="text" autocomplete="off" name="name" data-options="required:true"></input></td>
                     </tr>
+                    <tr>
+                        <td>{genInputLabel('tb.COLUMN_COMMENT')}:</td>
+                        <td>
+                            {genInput('tb.DATA_TYPE','tb.IS_NULLABLE','tb.COLUMN_NAME','tb.CHARACTER_MAXIMUM_LENGTH','tb_COLUMN_COMMENT')}
+                        </td>
+                    </tr>
                 {/foreach}
             </table>
         </form>
