@@ -52,18 +52,11 @@
 
             if($_POST){
                 $prod=load_model("prod");
-                $ret=$prod->_db->ecs_prod()->insert(array(
-                    "prod_name"=>"测试商品"
-                ));
-                if($ret&&intval($ret)==1){
-                    echo "submit success!";
-                }else{
-                    echo "submit failed";
-                }
+
                 exit();
             }
             $cols=load_model("COLUMNS",DB_SYSDSN);
-            $cols->loadAll("*","TABLE_NAME='ecs_prod' and EXTRA!='auto_increment' ");
+            $cols->loadAll("*"," TABLE_NAME='ecs_prod' and EXTRA!='auto_increment' ");
             $this->addObject("tbSet",$cols->all());
         }
 
