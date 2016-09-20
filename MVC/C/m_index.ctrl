@@ -52,7 +52,14 @@
 
             if($_POST){
                 $prod=load_model("prod");
-
+                $ret=$prod->_db->ecs_prod()->insert(array(
+                     "prod_name"=>GET("prod_name","post")
+                ));
+                if($ret && $ret>=1){
+                    echo "提交成功";
+                }else{
+                    echo "提交失败";
+                }
                 exit();
             }
             $cols=load_model("COLUMNS",DB_SYSDSN);

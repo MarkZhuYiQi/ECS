@@ -16,7 +16,7 @@ class _Model{
      * 这其实就是构造函数，现在很少用，在没有__construct函数下会去寻找同名函数作为构造函数
      * 相当于__construct($mName)
      */
-    function _Model($mName,$dsn=DB_DSN){
+    function _Model($mName,$dsn){
         $this->_dsn=$dsn;
         if($dsn==DB_DSN){
             //$mName暂时代表表名

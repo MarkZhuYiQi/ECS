@@ -4,7 +4,7 @@
             <table cellpadding="5">
                 {foreach:tbSet name="tb"}
                     <tr>
-                        <td>{genInputLabel('tb.COLUMN_COMMENT')}:</td>
+                        <td style="width:80px;">{genInputLabel('tb.COLUMN_COMMENT')}:</td>
                         <td>
                             {genInput('tb.DATA_TYPE','tb.IS_NULLABLE','tb.COLUMN_NAME','tb.CHARACTER_MAXIMUM_LENGTH','tb.COLUMN_COMMENT')}
                         </td>

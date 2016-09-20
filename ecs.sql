@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 19, 2016 at 12:00 PM
+-- Generation Time: Sep 20, 2016 at 12:02 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -80,14 +80,25 @@ CREATE TABLE IF NOT EXISTS `ecs_prod` (
   `prod_name` varchar(50) NOT NULL COMMENT '商品名称',
   `prod_introduction` varchar(500) DEFAULT NULL COMMENT '商品简介 ',
   `prod_content` longtext COMMENT '商品图文简介',
-  `prod_classId` int(11) NOT NULL DEFAULT '0' COMMENT '商品类ID|{"tb":"prod_class","id":"id","text","class_name"}',
+  `prod_classId` int(11) NOT NULL DEFAULT '0' COMMENT '商品类ID|{"tb":"prod_class","id":"id","text":"class_name"}',
   `prod_price1` decimal(10,2) DEFAULT NULL COMMENT '原价',
   `prod_price2` decimal(10,2) DEFAULT NULL COMMENT '现价',
   `prod_class_name` varchar(20) DEFAULT NULL COMMENT '商品类别',
-  `prod_ispublic` tinyint(1) NOT NULL DEFAULT '1' COMMENT '商品是否发布',
-  `addTime` datetime NOT NULL,
+  `prod_ispublic` bit(1) NOT NULL DEFAULT b'1' COMMENT '商品是否发布',
+  `addTime` datetime DEFAULT NULL COMMENT '添加时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `ecs_prod`
+--
+
+INSERT INTO `ecs_prod` (`id`, `prod_name`, `prod_introduction`, `prod_content`, `prod_classId`, `prod_price1`, `prod_price2`, `prod_class_name`, `prod_ispublic`, `addTime`) VALUES
+(5, 'sfdsf', NULL, NULL, 0, NULL, NULL, NULL, b'1', NULL),
+(6, 'sfdsf', NULL, NULL, 0, NULL, NULL, NULL, b'1', NULL),
+(7, 'sfdsf', NULL, NULL, 0, NULL, NULL, NULL, b'1', NULL),
+(8, 'sfdsf', NULL, NULL, 0, NULL, NULL, NULL, b'1', NULL),
+(9, 'hgfjghj', NULL, NULL, 0, NULL, NULL, NULL, b'1', NULL);
 
 -- --------------------------------------------------------
 
