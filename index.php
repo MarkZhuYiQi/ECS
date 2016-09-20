@@ -8,7 +8,7 @@
  * apache重写了url格式，变成了伪静态，http://localhost/ecs/index.php?control=index&action=getIndex&id=2333  same as
  * http://localhost/ecs/index.php/index/getIndex/?id=2333
  */
-
+//error_reporting(E_ALL & ~E_NOTICE);
 include("my.php");
 require("Common/functions.php");    //加载全站函数文件
 require("MVC/C/_Main.ctrl");        //require 遇到错误立马停止，include不停止继续加载，加载control主文件

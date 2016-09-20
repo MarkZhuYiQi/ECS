@@ -33,7 +33,7 @@
             $tb=load_model($json->tb);
             $tb->loadAll();
             foreach($tb->all() as $r){
-                $select.="<option value='".$r->id."'>".$r->text."<option>";
+                $select.="<option value='".$r[$json->id]."'>".$r[$json->text]."<option>";
             }
             $select.="</select>";
             return $select;
@@ -46,8 +46,15 @@
                 return '<textarea '.$missingMessage.' style="'.$style.'" autocomplete="off" class="easyui-validatebox"
                  type="textarea" resize="0" name="'.$colName.'" data-options="'.$options.'"></textarea>';
             case "longtext":
-                return '<textarea '.$missingMessage.' style="'.$style.'" autocomplete="off" class="easyui-validatebox"
-                 type="textarea" resize="0" name="'.$colName.'" data-options="'.$options.'"></textarea>';
+                $ueEditor='<script id="id_'.$colName.'" name="content" type="text/plain" style="width:100%;height:40%;"></script>';
+                $ueEditor.='<script type="text/javascript" src="/ecs/jsb/ue/ueditor.config.js"></script>';
+                $ueEditor.='<script type="text/javascript" src="/ecs/jsb/ue/ueditor.all.js"></script>';
+                $ueEditor.='<script type="text/javascript">var ue_'.$colName.' = UE.getEditor("id_'.$colName.'");</script>';
+                $ueEditor.='<input name="'.$colName.'" type="hidden" class="hideControl" />';
+                return $ueEditor;
+            case "datetime":
+                return '<input '.$missingMessage.' style="'.$style.'" autocomplete="off" class="easyui-datetimebox"
+                 type="textbox" name="'.$colName.'" data-options="'.$options.'" />';
             default:
                 return '<input '.$missingMessage.' style="'.$style.'" autocomplete="off" class="easyui-textbox"
                  type="text" name="'.$colName.'" data-options="'.$options.'" />';
