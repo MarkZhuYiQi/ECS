@@ -17,7 +17,7 @@ $get_control=isset($_GET["control"])?trim($_GET["control"]):"index";
 $get_action=isset($_GET["action"])?trim($_GET["action"]):"index";
 
 $admin_user="red";
-$admin_role=array("editor","admin");
+$admin_role=array("admin","editor");
 
 if(file_exists("MVC/C/".$get_control.".ctrl")){
     require("MVC/C/".$get_control.".ctrl");

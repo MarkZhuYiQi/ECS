@@ -5,6 +5,44 @@
             $this->addObject("hideTop",true);
             $this->addObject("hideBottom",true);
         }
+        function m_login_action(){
+//            print_r($_POST);
+            $get_userName=GET("userName","post");
+            $get_password=GET("password","post");
+            $get_remember=intval($_POST["remember"]);
+            if($get_userName == ""||$get_password == ""){
+                exit("error!userName or password error!");
+            }
+            $m=load_model("m_user");
+            $m->load(" m_user_userName='".$get_userName."' ");
+            if($m->m_user_password){
+                $get_db_password=$m->m_user_password;
+                if($get_db_password==myCrypt($get_password,USER_CRYPEKEY)){
+                    load_lib("user","userInfo");
+                    $userInfo=new userInfo();
+                    $userInfo->user_name=$get_userName;
+                    $userInfo->user_regTime=$m->m_user_regTime;
+                    $userInfo->user_loginIP=IP();
+                    $userInfo->user_loginTime=strtotime(date("Y-m-d H:i:s"));
+                    $cookie_string=myCrypt(serialize($userInfo),USERLOGIN_CRYPEKEY);
+                    if($get_remember>0){
+                        $cookieTime=time()+7*24*3600;
+                    }else{
+                        $cookieTime=0;
+                    }
+                    setcookie(USERLOGIN_CRYPEKEY,$cookie_string,$cookieTime,"/",USER_LOGINDOMAIN);
+                    exit("1");
+                }else{
+                    exit("0");
+                }
+            }else{
+                exit("error!username or password incorrect!");
+            }
+        }
+
+
+
+
         function login_action(){
 //            print_r($_POST);
             $get_userName=GET("userName","post");

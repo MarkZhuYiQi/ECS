@@ -11,7 +11,7 @@ class index extends _Main{
         $this->setViewName("msg");
         $this->addObject("hideTop",true);
         $this->addObject("hideBottom",true);
-        echo myCrypt("red",USER_CRYPEKEY);
+        echo myCrypt("admin",USER_CRYPEKEY);
 //        echo myDecrypt("VP4ApFqRw0wWUivtR/xR9Q==","1234");
     }
 

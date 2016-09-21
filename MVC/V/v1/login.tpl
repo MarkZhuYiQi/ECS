@@ -7,7 +7,7 @@
     function login(){
 
         var rememberWeek=0; //默认不记住登录状态
-        if($("#rememberWeek").prop("checked")){
+        if($("#rememberWeek").prop("checked")){     //返回元素属性或值
             rememberWeek=1; //记住一周
         }
         $(".form-horizontal").submit(

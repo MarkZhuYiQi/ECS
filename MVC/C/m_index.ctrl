@@ -11,6 +11,9 @@
         function index(){
             $this->setViewName("index");
         }
+        function login(){
+            $this->setViewName("login");
+        }
         function getTree_child($pid,$tree,$parentNode){
             $children=array();
             foreach($tree as $r){
