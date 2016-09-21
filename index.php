@@ -16,12 +16,35 @@ require("MVC/M/_Model.m");          //加载Model主文件
 $get_control=isset($_GET["control"])?trim($_GET["control"]):"index";
 $get_action=isset($_GET["action"])?trim($_GET["action"]):"index";
 
+$admin_user="red";
+$admin_role=array("editor","admin");
+
 if(file_exists("MVC/C/".$get_control.".ctrl")){
     require("MVC/C/".$get_control.".ctrl");
     $control=new $get_control();
     if(method_exists($control,$get_action)){
-        $control->$get_action();
-        $control->run();
+        $reflection=new ReflectionClass($control);  //获得类名
+        $method=$reflection->getMethod($get_action);  //获取方法名
+        if($method){
+            $comments=$method->getDocComment();
+//            var_dump($comments);      //获得了该方法的注释
+            if(preg_match("/permission:{(.*?)}/i",$comments,$result)){
+                $permission=$result[1];
+                $permission="{".$permission."}";
+                $permission=json_decode($permission);
+                $auth=$permission->role;
+                if($admin_user!="" && in_array($auth,$admin_role)){
+                    $control->$get_action();
+                    $control->run();
+                }else{
+                    exit("You do not have that authority!");
+                }
+            }else{
+                $control->$get_action();
+                $control->run();
+            }
+        }
+        exit();
     }
 }
 

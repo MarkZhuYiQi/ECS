@@ -3,6 +3,11 @@
         public function __construct(){
             $this->isAdmin=true;
         }
+
+        /**
+         * permission:{"role":"admin"}
+         * 权限在注释里面写
+         */
         function index(){
             $this->setViewName("index");
         }
@@ -25,7 +30,7 @@
             $ret=$tree->all();
             $ret2=clone($ret);      //复制一个$ret,用于给子pid循环子选项，尼玛不看视频根本不知道什么原因啊！
             foreach($ret as $r){
-//                echo $r["tree_text"]."<br />";
+//           erdfrbsdgsfdsdfdsf     echo $r["tree_text"]."<br />";
                 if($r["pid"]==0){       //代表根节点
                     $parentNode=array("id"=>$r['id'],"text"=>$r['tree_text'],"state"=>$r['tree_state']);
                     $get_children=$this->getTree_child($r['id'],$ret2,$parentNode);      //在这里把ret循环完了，指针到头了
@@ -51,7 +56,6 @@
             $this->setViewName("addprod");
 
             if($_POST){
-                echo 1;
                 $prod=load_model("prod");
                 $isPublic=isset($_POST["prod_ispublic"])?1:0;
                 $ret=$prod->_db->ecs_prod()->insert(array(
@@ -65,7 +69,7 @@
                     'prod_ispublic'=>$isPublic,
                     'prod_addTime'=>date("Y-m-d H:i:s",strtotime(GET('prod_addTime','post')))
                 ));
-
+                echo $ret;
                 if($ret && $ret>=1){
                     echo "post success!";
                 }else{
@@ -76,6 +80,33 @@
             $cols=load_model("COLUMNS",DB_SYSDSN);
             $cols->loadAll("*"," TABLE_NAME='ecs_prod' and EXTRA!='auto_increment' ");
             $this->addObject("tbSet",$cols->all());
+        }
+        function listprod(){
+            $this->setViewName("listprod");
+
+
+        }
+        function getprod(){
+            $prod=load_model("prod");
+            $page=1;        //页码
+            $pageSize=2;    //每页显示条目数量
+            if(isset($_GET["page"]))$page=intval($_GET["page"]);
+            if(isset($_GET["rows"]))$pageSize=intval($_GET["rows"]);
+            $ret=$prod->_db->ecs_prod()->select("*");       //这里写死了！
+            $ret=$ret->order("id desc")->limit($pageSize,($page-1)*$pageSize);
+            //iterator_to_array将迭代器中的元素拷贝到数组
+            //array_map,将用户自定义的函数作用到数组到每个值上。
+            $array=array_map("iterator_to_array",iterator_to_array($ret));
+            $data=array();
+            foreach($array as $r){
+                $data[]=$r;
+            }
+            $result=array("rows"=>$data,"total"=>$prod->_db->ecs_prod()->count("id"),"page"=>$page);
+//            var_dump($result);
+            echo json_encode($result);
+//            $result=array("rows"=>$data,"total"=>$prod->_db->ecs_prod()->count("*"),"page"=>$page);
+
+            exit();     //内置方法如果不使用exit，则会在json数据输出完成后继续执行_Main.ctrl中的run方法，就会把页面模板载入进去
         }
 
     }
