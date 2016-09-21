@@ -20,6 +20,14 @@
 </div>
 <script>
     function submitForm(){
+        $('.hideControl').each(function(){
+            var inputName=$(this).attr("name");
+            var div="ue_"+inputName;
+            eval("var getValue = "+div+".getContent()");
+            $(this).val(getValue);
+        });
+
+
         $('#ff').form('submit',{
             success:function(result){
                 alert(result);

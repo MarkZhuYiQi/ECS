@@ -51,14 +51,25 @@
             $this->setViewName("addprod");
 
             if($_POST){
+                echo 1;
                 $prod=load_model("prod");
+                $isPublic=isset($_POST["prod_ispublic"])?1:0;
                 $ret=$prod->_db->ecs_prod()->insert(array(
-                     "prod_name"=>GET("prod_name","post")
+                    'prod_name'=>GET('prod_name','post'),
+                    'prod_introduction'=>GET('prod_introduction','post'),
+                    'prod_content'=>GET('prod_content','post'),
+                    'prod_classId'=>GET('prod_classId','post'),
+                    'prod_price1'=>GET('prod_price1','post'),
+                    'prod_price2'=>GET('prod_price2','post'),
+                    'prod_class_name'=>GET('prod_class_name','post'),
+                    'prod_ispublic'=>$isPublic,
+                    'prod_addTime'=>date("Y-m-d H:i:s",strtotime(GET('prod_addTime','post')))
                 ));
+
                 if($ret && $ret>=1){
-                    echo "提交成功";
+                    echo "post success!";
                 }else{
-                    echo "提交失败";
+                    echo 'post failed';
                 }
                 exit();
             }
