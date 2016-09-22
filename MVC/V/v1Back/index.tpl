@@ -22,8 +22,10 @@
         //加载树形菜单
     });
     function addTab(title,url){
-        if($("#mainframe").tabs("exists",title)){
-            $("#mainframe").tabs("select",title);
+        if($("#mainframe").tabs("exists",title)) {
+            $("#mainframe").tabs("select", title);
+        }else if(url=="/ecs/member/m_unlogin/"){
+            window.location.href=url;
         }else{
             var content="<iframe src='"+url+"' width='100%' height='100%' frameborder='0'></iframe>";
             $("#mainframe").tabs("add",{

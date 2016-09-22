@@ -43,6 +43,11 @@ function the_user($location){
         }
     }elseif($location=="back"){
         if(isset($_COOKIE[BACKGROUND_LOGINKEY])){
+
+            //测试内容
+//            echo $_COOKIE[BACKGROUND_LOGINKEY];       //查看cookie中是否有该条目
+//            exit();
+
             load_lib("user","userInfo");
 //        $userInfo=new userInfo();
             $getCookie=myDecrypt($_COOKIE[BACKGROUND_LOGINKEY],BACKGROUND_CRYPTKEY);

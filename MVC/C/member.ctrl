@@ -31,9 +31,11 @@
                     if($get_remember>0){
                         $cookieTime=time()+7*24*3600;
                     }else{
-                        $cookieTime=0;
+                        $cookieTime=time()+1800;
                     }
-                    setcookie(BACKGROUND_LOGINKEY,$cookie_string,$cookieTime,"/",USER_LOGINDOMAIN);
+                    //2016-9-22叔说本地localhost不能作为domain传入cookie，会让IE失效！
+//                    setcookie(BACKGROUND_LOGINKEY,$cookie_string,$cookieTime,"/",USER_LOGINDOMAIN);
+                    setcookie(BACKGROUND_LOGINKEY,$cookie_string,$cookieTime,"/");
                     exit("1");
                 }else{
                     exit("0");
@@ -92,7 +94,7 @@
             $this->addObject("hideTop",true);
             $this->addObject("hideBottom",true);
             $this->addObject("refer",$_SERVER["HTTP_REFERER"]);
-            setcookie(BACKGROUND_LOGINKEY,'',time()-10000,"/",USER_LOGINDOMAIN);
+            setcookie(BACKGROUND_LOGINKEY,'',time()-10000,"/");
         }
     }
 //    class member extends _Main{

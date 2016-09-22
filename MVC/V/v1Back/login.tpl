@@ -41,17 +41,21 @@
                 "remember":remember
             },
             function(result){
-//                if(result==1){
-////                    self.location.reload();
-//                    window.location.href="/ecs/m_index/index/";
-//                }else if(result==0){
-//                    alert("login failed!");
-//                }
-                alert(result);
+                if(result==1){
+//                    self.location.reload();
+                    window.location.href="/ecs/m_index/index/";
+                }else if(result==0){
+                    alert("login failed!");
+                }
             }
         );
     }
     function clearForm(){
         $('#m_login').form('clear');
     }
+    $(document).keydown(function(e){
+        if(e.keyCode=="13"){
+            submitForm();
+        }
+    });
 </script>

@@ -26,6 +26,17 @@ if(file_exists("MVC/C/".$get_control.".ctrl")){
             $comments=$method->getDocComment();
             //如果匹配到权限注释则说明这个方法需要权限处理
             if(preg_match("/permission:{(.*?)}/i",$comments,$result)){
+
+
+//                  测试专用
+//                the_user("back");
+//                exit();
+
+
+
+
+
+
                 if($userInfo=the_user("back")) {    //获取后台cookie，如果没有获取到就说明没有登录
                     $admin_user=$userInfo->user_name;
                     $permission = $result[1];     //匹配到后台方法能访问的权限
