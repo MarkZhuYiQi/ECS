@@ -18,7 +18,6 @@
             foreach($m->all() as $r){
                 $m_user_password=$r['m_user_password'];
             }
-
             if($m_user_password){
                 $get_db_password=$m_user_password;
                 if($get_db_password==myCrypt($get_password,USER_CRYPTKEY)){

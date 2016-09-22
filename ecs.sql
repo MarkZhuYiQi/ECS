@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 21, 2016 at 11:26 AM
+-- Generation Time: Sep 22, 2016 at 11:51 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `ecs_m_role` (
   `roleName` varchar(20) DEFAULT NULL,
   `roleDes` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `ecs_m_role`
@@ -40,7 +40,8 @@ CREATE TABLE IF NOT EXISTS `ecs_m_role` (
 INSERT INTO `ecs_m_role` (`id`, `roleName`, `roleDes`) VALUES
 (1, 'admin', '管理员组'),
 (2, 'master', '主编组'),
-(3, 'editor', '编辑组');
+(3, 'editor', '编辑组'),
+(4, 'finance', '财务组');
 
 -- --------------------------------------------------------
 
@@ -49,8 +50,8 @@ INSERT INTO `ecs_m_role` (`id`, `roleName`, `roleDes`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `ecs_m_roleuser` (
-  `roleId` int(11) NOT NULL,
-  `userId` int(11) NOT NULL,
+  `roleId` int(11) NOT NULL COMMENT '存放用户ID指向的权限',
+  `userId` int(11) NOT NULL COMMENT '存放用户的ID',
   PRIMARY KEY (`roleId`,`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -59,7 +60,9 @@ CREATE TABLE IF NOT EXISTS `ecs_m_roleuser` (
 --
 
 INSERT INTO `ecs_m_roleuser` (`roleId`, `userId`) VALUES
-(3, 1);
+(1, 1),
+(3, 2),
+(4, 2);
 
 -- --------------------------------------------------------
 
@@ -74,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `ecs_m_tree` (
   `tree_state` char(6) NOT NULL DEFAULT 'open',
   `pid` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `ecs_m_tree`
@@ -86,7 +89,31 @@ INSERT INTO `ecs_m_tree` (`id`, `tree_text`, `tree_url`, `tree_state`, `pid`) VA
 (3, '商品列表', '/ecs/m_index/listprod/', 'open', 1),
 (4, '新闻管理', '', 'open', 0),
 (5, '新闻列表', '#', 'open', 4),
-(6, '添加新闻', '#', 'open', 4);
+(6, '添加新闻', '#', 'open', 4),
+(7, '用户管理', '', 'open', 0),
+(8, '安全退出', '/ecs/member/m_unlogin/', 'open', 7);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ecs_m_user`
+--
+
+CREATE TABLE IF NOT EXISTS `ecs_m_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `m_user_userName` varchar(20) NOT NULL,
+  `m_user_password` varchar(40) NOT NULL,
+  `m_user_regTime` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `ecs_m_user`
+--
+
+INSERT INTO `ecs_m_user` (`id`, `m_user_userName`, `m_user_password`, `m_user_regTime`) VALUES
+(1, 'admin', 'cs2HdHPaOnW+gfR/PhvvSg==', '2016-09-22 00:00:00'),
+(2, 'mark', '/thaEVX0wJOMs57x2YxG2A==', '2016-09-22 00:00:00');
 
 -- --------------------------------------------------------
 

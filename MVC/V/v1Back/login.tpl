@@ -41,13 +41,13 @@
                 "remember":remember
             },
             function(result){
-                if(result==1){
-//                    self.location.reload();
-                    window.location.href="/ecs/m_index/index/";
-                }else if(result==0){
-                    alert("login failed!");
-                }
-
+//                if(result==1){
+////                    self.location.reload();
+//                    window.location.href="/ecs/m_index/index/";
+//                }else if(result==0){
+//                    alert("login failed!");
+//                }
+                alert(result);
             }
         );
     }
