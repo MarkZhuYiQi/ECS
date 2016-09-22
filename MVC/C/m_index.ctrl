@@ -9,6 +9,9 @@
          * 权限在注释里面写
          */
         function index(){
+            if(!the_user("back")){
+                $this->login();
+            }
             $this->setViewName("index");
         }
         function login(){

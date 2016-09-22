@@ -16,9 +16,6 @@ require("MVC/M/_Model.m");          //加载Model主文件
 $get_control=isset($_GET["control"])?trim($_GET["control"]):"index";
 $get_action=isset($_GET["action"])?trim($_GET["action"]):"index";
 
-$admin_user="red";
-$admin_role=array("admin","editor");
-
 if(file_exists("MVC/C/".$get_control.".ctrl")){
     require("MVC/C/".$get_control.".ctrl");
     $control=new $get_control();
@@ -27,17 +24,24 @@ if(file_exists("MVC/C/".$get_control.".ctrl")){
         $method=$reflection->getMethod($get_action);  //获取方法名
         if($method){
             $comments=$method->getDocComment();
-//            var_dump($comments);      //获得了该方法的注释
+            //如果匹配到权限注释则说明这个方法需要权限处理
             if(preg_match("/permission:{(.*?)}/i",$comments,$result)){
-                $permission=$result[1];
-                $permission="{".$permission."}";
-                $permission=json_decode($permission);
-                $auth=$permission->role;
-                if($admin_user!="" && in_array($auth,$admin_role)){
-                    $control->$get_action();
-                    $control->run();
+                if($userInfo=the_user("back")) {    //获取后台cookie，如果没有获取到就说明没有登录
+                    $admin_user=$userInfo->user_name;
+                    $permission = $result[1];     //匹配到后台方法能访问的权限
+                    $permission = "{" . $permission . "}";    //重组成json
+                    $permission = json_decode($permission);   //解码json
+                    $auth = $permission->role;            //规定什么权限才能够访问这个方法
+                    $userAuth = $control->authority($admin_user);    //获取该用户拥有的权限
+                    if ($admin_user != "" && in_array($auth, $userAuth)) {
+                        $control->$get_action();
+                        $control->run();
+                    } else {
+                        exit("You do not have that authority!");
+                    }
                 }else{
-                    exit("You do not have that authority!");
+                    $control->login();
+                    $control->run();
                 }
             }else{
                 $control->$get_action();

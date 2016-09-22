@@ -29,16 +29,29 @@ function GET($pname,$method="get"){
     }
 }
 
-function the_user(){
-    if(isset($_COOKIE[USER_LOGINKEY])){
-        load_lib("user","userInfo");
+function the_user($location){
+    if($location=="front"){
+        if(isset($_COOKIE[USER_LOGINKEY])){
+            load_lib("user","userInfo");
 //        $userInfo=new userInfo();
-        $getCookie=myDecrypt($_COOKIE[USER_LOGINKEY],USERLOGIN_CRYPEKEY);
-        $userInfo=unserialize($getCookie);      //必须先有这个userInfo类定义的 才能正确解序列
-        if($userInfo&&$userInfo->user_name!=""&&$userInfo->user_loginIP==IP()){
-            return $userInfo;
+            $getCookie=myDecrypt($_COOKIE[USER_LOGINKEY],USERLOGIN_CRYPTKEY);
+            $userInfo=unserialize($getCookie);      //必须先有这个userInfo类定义的 才能正确解序列
+            if($userInfo&&$userInfo->user_name!=""&&$userInfo->user_loginIP==IP()){
+                return $userInfo;
+            }
+            return false;
         }
-        return false;
+    }elseif($location=="back"){
+        if(isset($_COOKIE[BACKGROUND_LOGINKEY])){
+            load_lib("user","userInfo");
+//        $userInfo=new userInfo();
+            $getCookie=myDecrypt($_COOKIE[BACKGROUND_LOGINKEY],BACKGROUND_CRYPTKEY);
+            $userInfo=unserialize($getCookie);      //必须先有这个userInfo类定义的 才能正确解序列
+            if($userInfo&&$userInfo->user_name!=""&&$userInfo->user_loginIP==IP()){
+                return $userInfo;
+            }
+            return false;
+        }
     }
     return false;
 }

@@ -1,4 +1,4 @@
-<div class="easyui-panel" title="New Topic" style="width:100%;height:100%">
+<div class="easyui-panel" title="添加商品" style="width:100%;height:100%">
     <div style="padding:10px 60px 20px 260px">
         <form id="ff" method="post">
             <table cellpadding="5">

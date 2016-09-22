@@ -63,7 +63,7 @@
                         </form>
                         <ul class="nav navbar-nav navbar-right">
                             <?php
-                                $getUser=the_user();
+                                $getUser=the_user("front");
                             ?>
                             <?php if($getUser): ?>
 

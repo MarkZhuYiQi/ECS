@@ -16,9 +16,11 @@
 
 
 
-    define("USER_CRYPEKEY","7777777y"); //用户密码，秘钥
-    define("USERLOGIN_CRYPEKEY","MarkZhuLgoin"); //用户登录密码，秘钥
-    define("USER_LOGINKEY","user_login");       // 便于用户管理
+    define("USER_CRYPTKEY","7777777y"); //用户密码，秘钥
+    define("USERLOGIN_CRYPTKEY","MarkZhuLogin"); //用户登录密码，秘钥
+    define("BACKGROUND_CRYPTKEY","BackGroundLogin");    //后台登录秘钥
+    define("USER_LOGINKEY","user_login");                   // 便于用户管理
+    define("BACKGROUND_LOGINKEY","background_login");       // 便于后台管理
     define("USER_LOGINDOMAIN","localhost");     //指定cookie能使用的范围
 
 

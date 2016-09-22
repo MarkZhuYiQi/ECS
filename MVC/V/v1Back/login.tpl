@@ -30,7 +30,7 @@
                 e.preventDefault();
             }
         );
-        if($("#remember").attr("checked")=="checked"){
+        if($("#remember").prop("checked")){
             remember=1;
         }
         $.post(
@@ -41,7 +41,13 @@
                 "remember":remember
             },
             function(result){
-                alert(result);
+                if(result==1){
+//                    self.location.reload();
+                    window.location.href="/ecs/m_index/index/";
+                }else if(result==0){
+                    alert("login failed!");
+                }
+
             }
         );
     }

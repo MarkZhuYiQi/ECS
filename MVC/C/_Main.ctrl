@@ -15,6 +15,26 @@ class _Main{
     public $isFileCache=false;   //默认是否保存文件缓存
     public $isAdmin=false;      //是否是后台管理
 
+    function authority($userName){
+        $m_user=load_model("m_user");
+        $m_user->load(" `m_user_userName`='".$userName."' ");
+        foreach($m_user->all() as $r){
+            $userId=$r;
+        }
+        $m_roleuser=load_model("m_roleuser");
+        $ret=$m_roleuser->_db->ecs_m_roleuser()->select("roleId")->where(" userId=".$userId." ");
+        foreach($ret as $r){
+             $roleId[]=$r["roleId"];
+        }
+        $m_role=load_model("m_role");
+        $ret=$m_role->_db->ecs_m_role()->select("id,roleName");
+        foreach($ret as $r){
+            if(in_array($r["id"],$roleId)){
+                $permission[]=$r["roleName"];
+            }
+        }
+        return $permission;         //该用户拥有的权限，以数组形式返回
+    }
 
     /**
      * 设置cache是否启用

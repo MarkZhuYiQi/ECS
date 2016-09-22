@@ -8,6 +8,7 @@
     $(document).ready(function(){
         $("#mytree").tree({
             url:"/ecs/m_index/tree/",
+            animate:true,
             onClick:function(node){
                 if(node.attributes && node.attributes.url) {
                     addTab(node.text,node.attributes.url);
@@ -60,7 +61,7 @@
 <div data-options="region:'center',title:'Main Title',iconCls:'icon-ok'">
 
     <div class="easyui-tabs" style="width:100%;height:100%" id="mainframe" >
-        <div title="title"></div>
+
     </div>
 
 </div>

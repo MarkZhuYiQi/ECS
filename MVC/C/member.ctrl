@@ -15,28 +15,32 @@
             }
             $m=load_model("m_user");
             $m->load(" m_user_userName='".$get_userName."' ");
-            if($m->m_user_password){
-                $get_db_password=$m->m_user_password;
-                if($get_db_password==myCrypt($get_password,USER_CRYPEKEY)){
+            foreach($m->all() as $r){
+                $m_user_password=$r['m_user_password'];
+            }
+
+            if($m_user_password){
+                $get_db_password=$m_user_password;
+                if($get_db_password==myCrypt($get_password,USER_CRYPTKEY)){
                     load_lib("user","userInfo");
                     $userInfo=new userInfo();
                     $userInfo->user_name=$get_userName;
                     $userInfo->user_regTime=$m->m_user_regTime;
                     $userInfo->user_loginIP=IP();
                     $userInfo->user_loginTime=strtotime(date("Y-m-d H:i:s"));
-                    $cookie_string=myCrypt(serialize($userInfo),USERLOGIN_CRYPEKEY);
+                    $cookie_string=myCrypt(serialize($userInfo),BACKGROUND_CRYPTKEY);
                     if($get_remember>0){
                         $cookieTime=time()+7*24*3600;
                     }else{
                         $cookieTime=0;
                     }
-                    setcookie(USERLOGIN_CRYPEKEY,$cookie_string,$cookieTime,"/",USER_LOGINDOMAIN);
+                    setcookie(BACKGROUND_LOGINKEY,$cookie_string,$cookieTime,"/",USER_LOGINDOMAIN);
                     exit("1");
                 }else{
                     exit("0");
                 }
             }else{
-                exit("error!username or password incorrect!");
+                exit("0");
             }
         }
 
@@ -55,14 +59,14 @@
             $m->load(" user_name='".$get_userName."' ");
             if($m->user_pass){
                 $get_db_pass=$m->user_pass;
-                if($get_db_pass===myCrypt($get_userPass,USER_CRYPEKEY)){
+                if($get_db_pass===myCrypt($get_userPass,USER_CRYPTKEY)){
                     load_lib("user","userInfo");        //加载用户登录信息类
                     $userInfo=new userInfo();
                     $userInfo->user_name=$get_userName;
                     $userInfo->user_regTime=$m->user_regTime;       //从表中提取出注册时间
                     $userInfo->user_loginIP=IP();
                     $userInfo->user_loginTime=strtotime(date("Y-m-d h:i:s"));   //登录时间戳
-                    $cookie_string=myCrypt(serialize($userInfo),USERLOGIN_CRYPEKEY);
+                    $cookie_string=myCrypt(serialize($userInfo),USERLOGIN_CRYPTKEY);
                     if($get_rememberWeek>0){
                         $cookieTime=time()+3600*24*7;
                     }else{
@@ -84,6 +88,13 @@
             $this->addObject("refer",$_SERVER["HTTP_REFERER"]);
             setcookie(USER_LOGINKEY,'',time()-10000,"/",USER_LOGINDOMAIN);
         }
+        function m_unlogin(){
+            $this->setViewName("unlogin");
+            $this->addObject("hideTop",true);
+            $this->addObject("hideBottom",true);
+            $this->addObject("refer",$_SERVER["HTTP_REFERER"]);
+            setcookie(BACKGROUND_LOGINKEY,'',time()-10000,"/",USER_LOGINDOMAIN);
+        }
     }
 //    class member extends _Main{
 //        function login(){
@@ -101,7 +112,7 @@
 //            $m->load(" user_name='".$get_userName."' ");
 //            if($m->user_pass){
 //                $get_db_pass=$m->user_pass;
-//                if($get_db_pass===myCrypt($get_userPass,USER_CRYPEKEY)){
+//                if($get_db_pass===myCrypt($get_userPass,USER_CRYPTKEY)){
 //                    exit("1");
 //                }else{
 //                    exit("0");
