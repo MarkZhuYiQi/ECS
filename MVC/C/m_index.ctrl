@@ -67,6 +67,7 @@
                 $ret=$prod->_db->ecs_prod()->insert(array(
                     'prod_name'=>GET('prod_name','post'),
                     'prod_introduction'=>GET('prod_introduction','post'),
+                    'prod_thumbnail'=>GET('prod_thumbnail','post'),
                     'prod_content'=>GET('prod_content','post'),
                     'prod_classId'=>GET('prod_classId','post'),
                     'prod_price1'=>GET('prod_price1','post'),

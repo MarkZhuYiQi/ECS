@@ -1,4 +1,9 @@
 <style>
+    a:hover{
+        text-decoration: none;
+        transition:all 0.3s ease;
+    }
+
     .price{
         color:#e4393c;
     }
@@ -13,6 +18,13 @@
         border-color: #d43f3a;
         color:#d9534f;
         outline:none;
+    }
+    .prod_title{
+        color:#333;
+        text-decoration: none;
+    }
+    .prod_title:hover{
+        color:orangered;
     }
 </style>
 
@@ -47,16 +59,19 @@
 
                     </ul>
                     <div class="row">               <!--商品列表-->
-                        <div class="col-md-4">
+                        {foreach:prodList name="prodList"}
+                        <div class="col-md-4 prod">
                             <div class="thumbnail">
-                                <img class="prodImg" data-placement="top" data-toggle="popover" data-trigger="click" title="JavaScript圣经" data-content="JavaScript圣经" alt="300x200" src="http://img12.360buyimg.com/n7/jfs/t1267/340/542581995/248346/e364dcaa/552e74bfN1350cd93.jpg" />
+                                <a href="/ecs/prod/detail/?pid={prodList.id}">
+                                    <img class="prodImg" data-placement="top" data-toggle="popover" data-trigger="click" title="{prodList.prod_name}" data-content="{prodList.prod_name}" alt="300x200" src="{prodList.prod_thumbnail}" />
+                                </a>
                                 <div class="caption">
                                     <h4>
-                                        JavaScript圣经
+                                        <a class="prod_title" href="/ecs/prod/detail/?pid={prodList.id}">{prodList.prod_name}</a>
                                     </h4>
                                     <p>
-                                        JavaScript圣经
-                                        <span class="price">￥50.00</span>
+                                        {prodList.prod_introduction}
+                                        <span class="price">￥{prodList.prod_price1}</span>
                                     </p>
                                     <p>
                                         <a href="#" class="btn">加入购物车</a>
@@ -64,142 +79,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="thumbnail">
-                                <img class="prodImg" data-placement="top" data-toggle="popover" data-trigger="click" title="JavaScript圣经" data-content="JavaScript圣经" alt="300x200" src="http://img10.360buyimg.com/n7/jfs/t2680/274/3707696254/120035/6281369a/57986bbdN27e0e4fe.jpg" />
-                                <div class="caption">
-                                    <h4>
-                                        O'Reilly：Head First Java
-                                    </h4>
-                                    <p>
-                                        O'Reilly：Head First Java
-                                        <span class="price">￥50.00</span>
-                                    </p>
-                                    <p>
-                                        <a href="#" class="btn">加入购物车</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="thumbnail">
-                                <img class="prodImg" data-placement="top" data-toggle="popover" data-trigger="click" title="JavaScript圣经" data-content="JavaScript圣经" alt="300x200" src="http://img13.360buyimg.com/n7/jfs/t1234/297/551484478/215959/973eea1f/552e7594N5f9833e9.jpg" />
-                                <div class="caption">
-                                    <h4>
-                                        JavaScript DOM编程艺术
-                                    </h4>
-                                    <p>
-                                        JavaScript圣经
-                                        <span class="price">￥50.00</span>
-                                    </p>
-                                    <p>
-                                        <a href="#" class="btn">加入购物车</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="thumbnail">
-                                <img alt="300x200" src="http://img12.360buyimg.com/n7/jfs/t1267/340/542581995/248346/e364dcaa/552e74bfN1350cd93.jpg" />
-                                <div class="caption">
-                                    <h4>
-                                        JavaScript圣经
-                                    </h4>
-                                    <p>
-                                        JavaScript圣经
-                                        <span class="price">￥50.00</span>
-                                    </p>
-                                    <p>
-                                        <a href="#" class="btn">加入购物车</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="thumbnail">
-                                <img alt="300x200" src="http://img10.360buyimg.com/n7/jfs/t2680/274/3707696254/120035/6281369a/57986bbdN27e0e4fe.jpg" />
-                                <div class="caption">
-                                    <h4>
-                                        O'Reilly：Head First Java
-                                    </h4>
-                                    <p>
-                                        O'Reilly：Head First Java
-                                        <span class="price">￥50.00</span>
-                                    </p>
-                                    <p>
-                                        <a href="#" class="btn">加入购物车</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="thumbnail">
-                                <img alt="300x200" src="http://img13.360buyimg.com/n7/jfs/t1234/297/551484478/215959/973eea1f/552e7594N5f9833e9.jpg" />
-                                <div class="caption">
-                                    <h4>
-                                        JavaScript DOM编程艺术
-                                    </h4>
-                                    <p>
-                                        JavaScript圣经
-                                        <span class="price">￥50.00</span>
-                                    </p>
-                                    <p>
-                                        <a href="#" class="btn">加入购物车</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="thumbnail">
-                                <img alt="300x200" src="http://img12.360buyimg.com/n7/jfs/t1267/340/542581995/248346/e364dcaa/552e74bfN1350cd93.jpg" />
-                                <div class="caption">
-                                    <h4>
-                                        JavaScript圣经
-                                    </h4>
-                                    <p>
-                                        JavaScript圣经
-                                        <span class="price">￥50.00</span>
-                                    </p>
-                                    <p>
-                                        <a href="#" class="btn">加入购物车</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="thumbnail">
-                                <img alt="300x200" src="http://img10.360buyimg.com/n7/jfs/t2680/274/3707696254/120035/6281369a/57986bbdN27e0e4fe.jpg" />
-                                <div class="caption">
-                                    <h4>
-                                        O'Reilly：Head First Java
-                                    </h4>
-                                    <p>
-                                        O'Reilly：Head First Java
-                                        <span class="price">￥50.00</span>
-                                    </p>
-                                    <p>
-                                        <a href="#" class="btn">加入购物车</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="thumbnail">
-                                <img alt="300x200" src="http://img13.360buyimg.com/n7/jfs/t1234/297/551484478/215959/973eea1f/552e7594N5f9833e9.jpg" />
-                                <div class="caption">
-                                    <h4>
-                                        JavaScript DOM编程艺术
-                                    </h4>
-                                    <p>
-                                        JavaScript圣经
-                                        <span class="price">￥50.00</span>
-                                    </p>
-                                    <p>
-                                        <a href="#" class="btn">加入购物车</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                        {/foreach}
                     </div>
                     <ul class="pagination">
                         <li>

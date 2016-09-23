@@ -16,16 +16,20 @@ class index extends _Main{
     }
 
     function getIndex(){
+        //商品信息加载
+        $prodList=load_model("prod");
+        $prodList->loadAll(" id,prod_name,prod_thumbnail,prod_introduction,prod_price1 ");
+        $this->addObject("prodList",$prodList->all());
+
         //模板加载在这个函数里
         $this->setViewName("index");
+
 
 /*        $this->setCacheEnabled(10);
 
         if(!$this->inCache()){
             $this->addObject("ProdName","我的第一个商品");
         }*/
-
-
         $m=load_model("user");     //加载用户表
 //        $m->load("id=1");
         $m->loadAll();

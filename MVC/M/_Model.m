@@ -55,12 +55,16 @@ class _Model{
         if(trim($where)=="")return false;   //禁止程序员没有任何条件的加载全表
         $this->_result=$this->_db->$tbName()->select("*")->where($where)->limit(1);
     }
-    function loadAll($cols="",$where=""){                  //加载表格
+    function loadAll($cols="",$where="",$order="",$limit=""){                  //加载表格
         $tbName=$this->_modelName;          //表名
         if($cols==""){
             $this->_result=$this->_db->$tbName();
+        }elseif($cols!=""&&$where==""){
+            $this->_result=$this->_db->$tbName()->select($cols);
         }else{
             $this->_result=$this->_db->$tbName()->select($cols)->where($where);
+            if($order="")$this->_result->order($order);
+            if($limit="")$this->_result->limit($order);
         }
     }
 

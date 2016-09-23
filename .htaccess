@@ -12,6 +12,7 @@
     RewriteRule ^css/(.*) /ecs/MVC/V/v1/css/$1
     RewriteRule ^js/(.*) /ecs/MVC/V/v1/js/$1
     RewriteRule ^img/(.*) /ecs/MVC/V/v1/img/$1
+    RewriteRule ^fonts/(.*) /ecs/MVC/V/v1/fonts/$1
 
     RewriteRule ^cssb/(.*) /ecs/MVC/V/v1Back/css/$1
     RewriteRule ^jsb/(.*) /ecs/MVC/V/v1Back/js/$1

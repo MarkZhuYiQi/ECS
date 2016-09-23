@@ -1,0 +1,13 @@
+<?php
+    class prod extends _Main{
+        function detail(){
+            $pid=intval($_GET["pid"]);
+            if($pid<=0)exit("没有该商品");
+            $prod=load_model("prod");
+            $prod->loadAll(" * "," id=".$pid." AND prod_ispublic=1" );
+            $this->addObject("proddetail",$prod->all());
+            $this->setViewName("prod");
+            $this->addObject("hideTop",false);
+            $this->addObject("hideBottom",false);
+        }
+    }
