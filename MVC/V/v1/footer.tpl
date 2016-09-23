@@ -29,10 +29,38 @@
         </div>
     </div>
     <div>
-        <button class="btn btn-danger myCart"><span class="glyphicon glyphicon-shopping-cart"> </span> 我的购物车 <span class="badge">1</span></button>
+        <button class="btn btn-danger myCart"><span class="glyphicon glyphicon-shopping-cart"> </span> 我的购物车 <span class="badge cartNum">0</span></button>
     </div>
 <?php
     endif;
 ?>
+<script>
+    $(document).ready(function(){
+        $(".addToCart").click(function(){
+            var oldProd=$(this).parents(".prod");
+            var newProd=$(this).parents(".prod").clone();
+            newProd.css(
+                {
+                    position:"fixed"
+                }
+            );
+            $(oldProd).parent().append(newProd);
+            newProd.animate({
+                right:10,
+                bottom:10,
+                width:0,
+                height:0
+            },"slow","",function(){
+                newProd.remove();
+                addCartNum();
+            });
+        });
+        function addCartNum(){
+            var getOldCartNum=parseInt($(".cartNum").html());
+            getOldCartNum++;
+            $(".cartNum").html(getOldCartNum);
+        }
+    });
+</script>
 </body>
 </html>

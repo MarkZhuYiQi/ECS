@@ -32,11 +32,6 @@ if(file_exists("MVC/C/".$get_control.".ctrl")){
 //                the_user("back");
 //                exit();
 
-
-
-
-
-
                 if($userInfo=the_user("back")) {    //获取后台cookie，如果没有获取到就说明没有登录
                     $admin_user=$userInfo->user_name;
                     $permission = $result[1];     //匹配到后台方法能访问的权限
