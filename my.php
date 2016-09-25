@@ -23,5 +23,7 @@
     define("BACKGROUND_LOGINKEY","background_login");       // 便于后台管理
     define("USER_LOGINDOMAIN","localhost");     //指定cookie能使用的范围
 
-
+    define("USER_CART_COOKIEKEY","user_cart_unlog");        //用户未登录时cookie中购物车存放名
+    define("USER_CART_CRYPTKEY","CartUnLoginStatus");       //未登录时购物车cookie密钥
+    define("USER_CART_CACHEKEY","user_cart_log");           //用户登录后，保存的memcached存放名
 

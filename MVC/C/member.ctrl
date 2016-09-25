@@ -46,8 +46,6 @@
         }
 
 
-
-
         function login_action(){
 //            print_r($_POST);
             $get_userName=GET("userName","post");
@@ -74,6 +72,7 @@
                         $cookieTime=0;
                     }
                     setcookie(USER_LOGINKEY,$cookie_string,$cookieTime,"/",USER_LOGINDOMAIN);
+                    $this->mergeCart($get_userName);
                     exit("1");
                 }else{
                     exit("0");
@@ -96,32 +95,17 @@
             $this->addObject("refer",$_SERVER["HTTP_REFERER"]);
             setcookie(BACKGROUND_LOGINKEY,'',time()-10000,"/");
         }
+        function mergeCart($userName){
+            $getCart=getCookieCart();       //获取cookie中的购物车数据
+            $getCacheCart=get_cache(USER_CART_CACHEKEY.$userName);
+            if(!$getCacheCart||$getCacheCart=="")$getCacheCart=array();
+            if($getCart){
+                $getCacheCart=array_unique(array_merge($getCart,$getCacheCart));    //合并去重
+            }
+            if(count($getCacheCart)>0){
+                set_cache(USER_CART_CACHEKEY.$userName,$getCacheCart,3600*24);
+            }
+//            setcookie(USER_CART_COOKIEKEY, "", time()-3600*24*30, "/");
+        }
     }
-//    class member extends _Main{
-//        function login(){
-//            $this->setViewName("login");
-//            $this->addObject("hideTop",true);
-//            $this->addObject("hideBottom",true);
-//        }
-//        function login_action(){
-//            $get_userName=GET("userName","post");
-//            $get_userPass=GET("userPass","post");
-//            if($get_userName==""||$get_userPass==""){
-//                exit("error!userName or Password could not be null!");
-//            }
-//            $m=load_model("user");
-//            $m->load(" user_name='".$get_userName."' ");
-//            if($m->user_pass){
-//                $get_db_pass=$m->user_pass;
-//                if($get_db_pass===myCrypt($get_userPass,USER_CRYPTKEY)){
-//                    exit("1");
-//                }else{
-//                    exit("0");
-//                }
-//            }else{
-//                exit("error!userName or Password incorrect!");
-//            }
-//        }
-//    }
-
 

@@ -29,7 +29,8 @@
         </div>
     </div>
     <div>
-        <button class="btn btn-danger myCart"><span class="glyphicon glyphicon-shopping-cart"> </span> 我的购物车 <span class="badge cartNum">0</span></button>
+        <button class="btn btn-danger myCart"><span class="glyphicon glyphicon-shopping-cart"> </span> 我的购物车 <span class="badge cartNum" id="cartNum">0</span></button>
+        <script src="/ecs/prod/initCart/"></script>
     </div>
 <?php
     endif;
@@ -37,28 +38,35 @@
 <script>
     $(document).ready(function(){
         $(".addToCart").click(function(){
+            var pid=$(this).attr("pid");
             var oldProd=$(this).parents(".prod");
             var newProd=$(this).parents(".prod").clone();
             newProd.css(
                 {
-                    position:"fixed"
+                    position:"fixed",
+                    "left":oldProd.offset().left,
+                    "top":oldProd.offset().top - $(document).scrollTop()
                 }
             );
+//            console.log(oldProd.offset());
+//            console.log($(document).scrollTop());
             $(oldProd).parent().append(newProd);
             newProd.animate({
-                right:10,
-                bottom:10,
+                left:$(".cartNum").offset().left,
+                top:$(".cartNum").offset().top,
                 width:0,
                 height:0
             },"slow","",function(){
                 newProd.remove();
-                addCartNum();
+                addCartNum(pid);
             });
         });
-        function addCartNum(){
-            var getOldCartNum=parseInt($(".cartNum").html());
-            getOldCartNum++;
-            $(".cartNum").html(getOldCartNum);
+        function addCartNum(pid){
+            $.post("/ecs/prod/addToCart/",{
+                "pid":pid
+            },function(result){
+                $(".cartNum").html(result);
+            });
         }
     });
 </script>

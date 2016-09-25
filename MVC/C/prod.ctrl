@@ -10,4 +10,61 @@
             $this->addObject("hideTop",false);
             $this->addObject("hideBottom",false);
         }
+
+        /**
+         * 初始化脚本，在页面刷新时获取cookie购物车中的内容
+         */
+        function initCart(){
+            if(!the_user("front")){
+                if($getCart=getCookieCart()){
+                    echo "document.getElementById('cartNum').innerHTML=".count($getCart).";";
+                }
+            }else{
+                $getCart=get_cache(USER_CART_CACHEKEY.the_user("front")->user_name);
+                if($getCart){
+                    echo "document.getElementById('cartNum').innerHTML=".count($getCart).";";
+                }
+            }
+            exit();
+        }
+        function addToCart(){
+            //加入购物车代码
+            $getUser=the_user("front");     //获取用户登陆信息
+            $getPid=intval($_POST["pid"]);   //获取加入购物车时传入的PID
+            if($getPid<=0)exit("0");
+            if(!$getUser){                  //如果未登录
+                if(isset($_COOKIE[USER_CART_COOKIEKEY])){               //如果cookie中存在购物车内容
+                    $getCart=$_COOKIE[USER_CART_COOKIEKEY];
+                    $getCart=myDecrypt($getCart,USER_CART_CRYPTKEY);    //cookie中购物车原信息
+                    $getCart=unserialize($getCart);
+                    if(!in_array($getPid,$getCart)){
+                        $getCart[]=$getPid;
+                        setcookie(
+                            USER_CART_COOKIEKEY,
+                            myCrypt(serialize($getCart),USER_CART_CRYPTKEY),
+                            time()+3600*24*30,
+                            "/"
+                        );
+                    }
+                    exit(strval(count($getCart)));
+                }else{                      //如果没有购物车内容
+                    setcookie(
+                        USER_CART_COOKIEKEY,
+                        myCrypt(serialize(array($getPid)),USER_CART_CRYPTKEY),
+                        time()+3600*24*30,
+                        "/"
+                    );
+                    exit("1");              //返回一个商品数量
+                }
+            }else{                          //如果已经登陆
+                $getCacheCart=get_cache(USER_CART_CACHEKEY.$getUser->user_name);
+                if(!$getCacheCart||$getCacheCart=="")$getCacheCart=array();
+                array_push($getCacheCart,$getPid);
+                $getCacheCart=array_unique($getCacheCart);
+                if(count($getCacheCart)>0){
+                    set_cache(USER_CART_CACHEKEY.$getUser->user_name,$getCacheCart,3600*24);
+                }
+                exit(strval(count($getCacheCart)));
+            }
+        }
     }

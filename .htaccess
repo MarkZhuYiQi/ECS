@@ -28,9 +28,6 @@
 #   RewriteRule获取到的URL包含有最前面的斜杠（也就是域名或端口号后面的斜杠）
 #   尼玛，注意匹配字符！是不是有下划线还是别的！真纠结！
 
-
-
-
     RewriteRule ^(\w{3,20})/(\w{3,20})/$ /ecs/index.php?control=$1&action=$2&%1
 </ifmodule>
 

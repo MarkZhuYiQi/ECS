@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 22, 2016 at 11:51 AM
+-- Generation Time: Sep 25, 2016 at 06:16 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -147,6 +147,7 @@ CREATE TABLE IF NOT EXISTS `ecs_prod` (
   `id` int(8) NOT NULL AUTO_INCREMENT,
   `prod_name` varchar(50) NOT NULL COMMENT '商品名称',
   `prod_introduction` text COMMENT '商品简介 ',
+  `prod_thumbnail` text NOT NULL COMMENT '商品图片',
   `prod_content` longtext COMMENT '商品图文简介',
   `prod_classId` int(11) NOT NULL DEFAULT '0' COMMENT '商品类ID|{"tb":"prod_class","id":"id","text":"class_name"}',
   `prod_price1` decimal(10,2) DEFAULT NULL COMMENT '原价',
@@ -155,18 +156,19 @@ CREATE TABLE IF NOT EXISTS `ecs_prod` (
   `prod_ispublic` bit(1) NOT NULL DEFAULT b'1' COMMENT '商品是否发布',
   `prod_addTime` datetime DEFAULT NULL COMMENT '添加时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `ecs_prod`
 --
 
-INSERT INTO `ecs_prod` (`id`, `prod_name`, `prod_introduction`, `prod_content`, `prod_classId`, `prod_price1`, `prod_price2`, `prod_class_name`, `prod_ispublic`, `prod_addTime`) VALUES
-(7, 'red', '', 'red', 1, '0.00', '0.00', '', b'0', '1970-01-01 01:00:00'),
-(8, 'Javascript高级程序设计', 'Javascript高级程序设计', 'Javascript高级程序设计', 1, '12.00', '12.00', '12', b'1', '2016-09-21 10:14:24'),
-(9, 'python基础教程', 'python基础教程', 'python基础教程', 1, '65.00', '15.00', '2', b'1', '2016-09-21 10:15:13'),
-(10, 'C#高级教程', 'C#高级教程', 'C#高级教程', 1, '199.00', '99.00', '2', b'1', '2016-09-21 10:15:36'),
-(11, 'JAVA高级教程', 'JAVA高级教程', 'JAVA高级教程', 1, '99.00', '98.00', '2', b'1', '2016-09-21 10:16:02');
+INSERT INTO `ecs_prod` (`id`, `prod_name`, `prod_introduction`, `prod_thumbnail`, `prod_content`, `prod_classId`, `prod_price1`, `prod_price2`, `prod_class_name`, `prod_ispublic`, `prod_addTime`) VALUES
+(10, 'C#高级教程', 'C#高级教程', 'http://img12.360buyimg.com/n1/jfs/t766/42/347764079/292212/7f849eb5/54a3536bN34e91b95.jpg', 'C#高级教程', 1, '199.00', '99.00', '2', b'1', '2016-09-21 10:15:36'),
+(11, 'JAVA高级教程', 'JAVA高级教程', 'http://img14.360buyimg.com/n1/jfs/t2191/111/699154754/198998/32d7bfe0/5624b582Nbc01af5b.jpg', 'JAVA高级教程', 1, '99.00', '98.00', '2', b'1', '2016-09-21 10:16:02'),
+(12, 'JavaScript高级程序设计', 'JavaScript技术名著', 'http://img12.360buyimg.com/n1/jfs/t1267/340/542581995/248346/e364dcaa/552e74bfN1350cd93.jpg', 'JavaScript高级程序设计', 1, '99.00', '66.00', '2', b'1', '2016-09-23 20:42:27'),
+(13, '算法 第4版', 'Sedgewick之计算机科学巨著', 'http://img14.360buyimg.com/n1/g8/M03/07/17/rBEHZ1BhZCEIAAAAAACh1nTDkWUAABgjACcLrIAAKHu428.jpg', 'Sedgewick之巨著，与高德纳TAOCP一脉相承　　几十年多次修订，经久不衰的畅销书　　涵盖所有程序员必须掌握的50种算法', 1, '99.00', '77.00', '2', b'1', '2016-09-23 20:45:39'),
+(14, 'Python基础教程', 'Python入门佳作', 'http://img13.360buyimg.com/n1/g16/M00/06/0C/rBEbRlN0ePIIAAAAAATT-qwU0sgAABPxwGZPeAABNQS784.jpg', 'Python入门佳作 ', 1, '79.00', '55.00', '2', b'1', '2016-09-23 20:46:38'),
+(15, 'PHP核心技术与最佳实践', '系统归纳和深刻解读PHP', 'http://img12.360buyimg.com/n1/g7/M03/0D/1C/rBEHZlCaNN4IAAAAAACR4LgiyasAACtigGA56oAAJH4268.jpg', '系统归纳和深刻解读PHP开发中的编程思想、底层原理……', 1, '89.00', '70.00', '2', b'1', '2016-09-23 20:47:36');
 
 -- --------------------------------------------------------
 

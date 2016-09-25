@@ -21,6 +21,7 @@ class index extends _Main{
         $prodList->loadAll(" id,prod_name,prod_thumbnail,prod_introduction,prod_price1 ");
         $this->addObject("prodList",$prodList->all());
 
+
         //模板加载在这个函数里
         $this->setViewName("index");
 

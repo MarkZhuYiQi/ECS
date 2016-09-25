@@ -95,5 +95,13 @@ function IP(){
     }
     return $cip;
 }
+function getCookieCart(){
+    if(isset($_COOKIE[USER_CART_COOKIEKEY])){
+        $getCart=myDecrypt($_COOKIE[USER_CART_COOKIEKEY],USER_CART_CRYPTKEY);
+        if($getCart==""||!$getCart)return false;
+        return unserialize($getCart);
+    }
+    return false;
+}
 
 include("encrypt.php");

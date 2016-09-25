@@ -74,7 +74,7 @@
                                         <span class="price">￥{prodList.prod_price1}</span>
                                     </p>
                                     <p>
-                                        <a href="javascript:void(0);" class="btn addToCart">加入购物车</a>
+                                        <a href="javascript:void(0);" class="btn addToCart" pid="{prodList.id}">加入购物车</a>
                                     </p>
                                 </div>
                             </div>
